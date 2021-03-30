@@ -2,6 +2,7 @@ import React from "react";
 import TitlePage from "./TitlePage";
 import QuestionPage from "./QuestionPage";
 import ResultPage from "./ResultPage";
+import DetailPage from "./DetailPage";
 
 class App extends React.Component {
   constructor(props) {
