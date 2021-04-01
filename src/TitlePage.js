@@ -2,6 +2,7 @@ import React, {useRef} from "react";
 import { Animated, View, StyleSheet } from "react-native";
 import { Button, Title } from "react-native-paper";
 
+
 const FadeInView = (props) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
