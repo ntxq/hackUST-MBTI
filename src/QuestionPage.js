@@ -9,21 +9,20 @@ import {
   Text,
   TextInput,
 } from "react-native";
-import { Headline, Button } from "react-native-paper";
+import { Title } from "react-native-paper";
 
 export default class QuestionPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       quesNum: 0,
-      color: 0,
     };
 
     this.selectAnswer = this.selectAnswer.bind(this);
   }
 
   selectAnswer() {
-    if (this.state.quesNum < questions.length - 1)
+    if (this.state.quesNum < mbtiQuestions.length - 1)
       this.setState({
         quesNum: this.state.quesNum + 1,
       });
@@ -31,188 +30,136 @@ export default class QuestionPage extends React.Component {
   }
 
   render() {
-    // 4 selections
-    if (answers[this.state.quesNum].length == 4) {
-      return (
-        //<TouchableOpacity style={questionStyles.touchable}>
-        <View style={questionStyles.questionScreen}>
-          <Text style={questionStyles.questionText}>
-            {questions[this.state.quesNum]}
-          </Text>
-          <View style={questionStyles.questionAnswers}>
-            <TouchableOpacity
-              style={questionStyles.button}
-              onPress={this.selectAnswer}
-            >
-              <Image
-                source={{
-                  uri:
-                    "https://keystoneacademic-res.cloudinary.com/image/upload/q_auto,f_auto,w_743,c_limit/element/14/144606_Intro.jpg",
-                }}
-                style={questionStyles.img}
-              />
-              <Text style={questionStyles.answerText}>
-                {answers[this.state.quesNum][0]}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={questionStyles.button}
-              onPress={this.selectAnswer}
-            >
-              <Image
-                source={{
-                  uri:
-                    "https://files.klgates.com/images/office/107906_image.png",
-                }}
-                style={questionStyles.img}
-              />
-              <Text style={questionStyles.answerText}>
-                {answers[this.state.quesNum][1]}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={questionStyles.button}
-              onPress={this.selectAnswer}
-            >
-              <Image
-                source={{
-                  uri:
-                    "https://eturbonews.com/wp-content/uploads/2020/04/lvmh-prada-hong-kong-luxury-retail-rents.jpg",
-                }}
-                style={questionStyles.img}
-              />
-              <Text style={questionStyles.answerText}>
-                {answers[this.state.quesNum][2]}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={questionStyles.button}
-              onPress={this.selectAnswer}
-            >
-              <Image
-                source={{
-                  uri:
-                    "https://static01.nyt.com/images/2020/06/03/world/03hongkong-damages-1/03hongkong-damages-1-mediumSquareAt3X.jpg",
-                }}
-                style={questionStyles.img}
-              />
-              <Text style={questionStyles.answerText}>
-                {answers[this.state.quesNum][3]}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        //</TouchableOpacity>
-      );
-    }
-    // 5 selections
-    /*
-
-  else if(answers[this.state.quesNum].length == 5){
-    
-    return (
-      <View style={questionStyles.questionScreen}>
-        <Headline style={questionStyles.questionText}>
-          {questions[this.state.quesNum]}
-        </Headline>
-        <View style={questionStyles.questionAnswers}>
-        <Button style={[questionStyles.answerBox, colorStyles]} onPress={this.selectAnswer}>
-            <Text style={questionStyles.answerText}>  
-            {answers[this.state.quesNum][0]} 
-            </Text>
-          </Button>
-          <Button style={questionStyles.answerBox} onPress={this.selectAnswer}>
-            <Text style={questionStyles.answerText}>  
-            {answers[this.state.quesNum][1]} 
-            </Text>
-          </Button>
-          <Button style={questionStyles.answerBox} onPress={this.selectAnswer}>
-            <Text style={questionStyles.answerText}>  
-            {answers[this.state.quesNum][2]} 
-            </Text>
-          </Button>
-          <Button style={questionStyles.answerBox} onPress={this.selectAnswer}>
-            < Text style={questionStyles.answerText}>  
-            {answers[this.state.quesNum][3]} 
-            </Text>
-          </Button>
-          <Button style={questionStyles.answerBox} onPress={this.selectAnswer}>
-            < Text style={questionStyles.answerText}>  
-            {answers[this.state.quesNum][4]} 
-            </Text>
-          </Button>
-        </View>
-      </View>
-    );
-   }
-   */
+    return <View />;
   }
 }
 
-const colors = [
-  "#87CEFA", // lightskyblue
-  "#E6E6FA", // lavender
-  "#F08080", // lightcoral
-  "#FFEBCD", // blanchedalmond
-  "#98FB98", // palegreen
+// Energy: Extraversion vs Introversion
+// Information: Sensing vs Intuition
+// Conclusion: Thinking vs Feeling
+// Approach: Judging vs Perceiving
+const ENERGY = "energy",
+  INFORMATION = "information",
+  CONCLUSION = "conclusion",
+  APPROACH = "approach";
+
+const mbtiQuestions = [
+  {
+    keyword: ENERGY,
+    questions: [
+      {
+        id: 0,
+        question:
+          "After a busy week, you finally arrived at your travel destination on Friday night. What should you do?",
+        answers: [
+          "The moment you arrive is the start of your vacation; go out to the streets and enjoy the night.",
+          "Rest in a hotel to recharge energy.",
+        ],
+      },
+      {
+        id: 4,
+        question: "If you're on a group tour, what kind of person are you?",
+        answers: [
+          "Actively engage in conversations with other people.",
+          "Feels little uncomfortable to be with unfamiliar people.",
+        ],
+      },
+      {
+        id: 8,
+        question: "What place do you like to travel?",
+        answers: [
+          "Cities and tourist attractions where people are crowded.",
+          "Calm and peaceful places where you can feel the nature.",
+        ],
+      },
+    ],
+  },
+  {
+    keyword: INFORMATION,
+    questions: [
+      {
+        id: 1,
+        question: "Which answer best describes your character?",
+        answers: [
+          "I can remember my past trips even if I traveled only once.",
+          "I can't remember my past trips well.",
+        ],
+      },
+      {
+        id: 5,
+        question: "Which section do you read first in a travel brochure?",
+        answers: [
+          "The place's popular tourist attractions and restaurants.",
+          "The place's history and culture.",
+        ],
+      },
+      {
+        id: 6,
+        question: "You found an item you must buy. What would you do?",
+        answers: [
+          "Look around other places to check whether they offer the item at a lower price.",
+          "Purchase the item now without hesitation.",
+        ],
+      },
+    ],
+  },
+  {
+    keyword: CONCLUSION,
+    questions: [
+      {
+        id: 2,
+        question:
+          "If you do not like the travel plan composed by your friend...",
+        answers: [
+          "Approach your friend directly and discuss how it should be changed",
+          "Keep up with the schedule since your friend worked hard on it.",
+        ],
+      },
+      {
+        id: 9,
+        question: "How do you perceive foreign cultures?",
+        answers: [
+          "Ponder on reasons why the people developed a such cultures.",
+          "Accept them as they are and move on.",
+        ],
+      },
+      {
+        id: 10,
+        question: "You are travelling alone! What would you do?",
+        answers: [
+          "Plan ahead objectives you want to gain from the travel.",
+          "Great photos to upload on your SNS is what you travel for.",
+        ],
+      },
+    ],
+  },
+  {
+    keyword: APPROACH,
+    questions: [
+      {
+        id: 3,
+        question: "How do you check-in your flight?",
+        answers: [
+          "Pre-check-in and reserve your seat a day before the flight.",
+          "Check-in at the kiosk at the airport on the day of departure.",
+        ],
+      },
+      {
+        id: 7,
+        question: "How do you travel new places?",
+        answers: [
+          "Travel as planned before.",
+          "Enjoy the unfamiliarity; travel as you feel.",
+        ],
+      },
+      {
+        id: 11,
+        question: "This trip was successful because...",
+        answers: [
+          "You experienced everything you planned.",
+          "You had new experience you didn't expect.",
+        ],
+      },
+    ],
+  },
 ];
-
-const questions = [
-  "How much money should I spend on this trip?",
-  "How far away should this trip be?",
-  "How active do I want this trip to be?",
-  "With whom should I go travel with?",
-  "What do I want to learn from this trip?",
-];
-
-const answers = [
-  ["Lot", "Average", "Little", "Don't Care"],
-  ["Far", "Average", "Close", "Don't Care"],
-  ["Active", "Average", "Lazy", "Don't Care"],
-  ["Family", "Couple", "Alone", "Don't Care"],
-  ["History", "Nightlife", "Religion", "Don't Care"],
-];
-
-const questionStyles = StyleSheet.create({
-  questionScreen: {
-    flex: 1,
-    flexDirection: "column",
-    marginVertical: 30,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  questionText: {
-    marginHorizontal: 30,
-    flex: 1,
-    textAlign: "center",
-    fontSize: 25,
-    color: `#9932cc`,
-    backgroundColor: `#fffacd`,
-  },
-
-  questionAnswers: {
-    flex: 8,
-    alignItems: "center",
-  },
-
-  button: {
-    flex: 5,
-    alignItems: "center",
-    backgroundColor: colors[(Math.floor(Math.random()) * 10) % 5],
-    margin: 10,
-  },
-
-  answerText: {
-    fontSize: 30,
-    textTransform: "capitalize",
-  },
-  img: {
-    width: 300,
-    height: 100,
-  },
-  touchable: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
