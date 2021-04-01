@@ -8,6 +8,7 @@ import {
   AppRegistry,
   Text,
   TextInput,
+  Pressable,
 } from "react-native";
 import { Title } from "react-native-paper";
 
@@ -15,14 +16,32 @@ export default class QuestionPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      questions: [],
       quesNum: 0,
     };
 
     this.selectAnswer = this.selectAnswer.bind(this);
+
+    //Randomly select 3 questions from each keyword, then add it to the questions pool.
+    for (let i = 0; i < 3; ++i)
+      mbtiQuestions.forEach((keyword) => {
+        let randQuestion =
+          keyword.questions[
+            Math.floor(Math.random() * keyword.questions.length)
+          ];
+
+        while (this.state.questions.includes(randQuestion))
+          randQuestion =
+            keyword.questions[
+              Math.floor(Math.random() * keyword.questions.length)
+            ];
+
+        this.state.questions.push(randQuestion);
+      });
   }
 
   selectAnswer() {
-    if (this.state.quesNum < mbtiQuestions.length - 1)
+    if (this.state.quesNum < 11)
       this.setState({
         quesNum: this.state.quesNum + 1,
       });
@@ -30,7 +49,27 @@ export default class QuestionPage extends React.Component {
   }
 
   render() {
-    return <View />;
+    return (
+      <View>
+        <View>
+          <Title>{this.state.questions[this.state.quesNum].question}</Title>
+        </View>
+
+        <View>
+          <Pressable onPress={this.selectAnswer}>
+            <View>
+              <Text>{this.state.questions[this.state.quesNum].answers[0]}</Text>
+            </View>
+          </Pressable>
+
+          <Pressable onPress={this.selectAnswer}>
+            <View>
+              <Text>{this.state.questions[this.state.quesNum].answers[0]}</Text>
+            </View>
+          </Pressable>
+        </View>
+      </View>
+    );
   }
 }
 
