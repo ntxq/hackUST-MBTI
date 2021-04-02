@@ -12,13 +12,13 @@ import {
   Text,
   TextInput,
   Pressable,
-  Dimensions
+  Dimensions,
 } from "react-native";
-import { Title } from "react-native-paper"; 
+import { Title } from "react-native-paper";
 
-const dimensions = Dimensions.get('window');
+const dimensions = Dimensions.get("window");
 
-const buttonSound = require('E:/ABC/hackUST/sounds/buttonSound.mp3');
+const buttonSound = require("E:/ABC/hackUST/sounds/buttonSound.mp3");
 
 export default class QuestionPage extends React.Component {
   constructor(props) {
@@ -38,7 +38,7 @@ export default class QuestionPage extends React.Component {
         while (this.state.questions.includes(keyword.questions[randQuestion]))
           randQuestion = Math.floor(Math.random() * keyword.questions.length);
         this.state.questions.push(keyword.questions[randQuestion]);
-        this.state.questionImages.push(randQuestion)
+        this.state.questionImages.push(randQuestion);
       });
   }
 
@@ -50,32 +50,40 @@ export default class QuestionPage extends React.Component {
     else this.props.startResult();
   }
 
-  
   render() {
     return (
       <View style={pageStyle.screenSection}>
         <View style={pageStyle.questionSection}>
-          <Text style ={questionStyle.questionText}>{this.state.questions[this.state.quesNum].question}</Text>
+          <Text style={questionStyle.questionText}>
+            {this.state.questions[this.state.quesNum].question}
+          </Text>
         </View>
 
         <View style={pageStyle.answerSection}>
-          <TouchableOpacity style ={answerStyle.answerButton} onPress={this.selectAnswer}>
-          <Image
-                source={images[0][0]}
-                style={answerStyle.img}
-              />
+          <TouchableOpacity
+            style={answerStyle.answerButton}
+            onPress={this.selectAnswer}
+          >
+            <Image source={images[0][0]} style={answerStyle.img} />
             <View>
-              <Text style={answerStyle.answerText}>{this.state.questions[this.state.quesNum].answers[0]}</Text>
+              <Text style={answerStyle.answerText}>
+                {this.state.questions[this.state.quesNum].answers[0]}
+              </Text>
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style ={answerStyle.answerButton} onPress={this.selectAnswer}>
-          <Image
-                source={images[0][1]} // replace 0 with this.state.questionImages[quesNum] when all images are ready.
-                style={answerStyle.img}
-              />
+          <TouchableOpacity
+            style={answerStyle.answerButton}
+            onPress={this.selectAnswer}
+          >
+            <Image
+              source={images[0][1]} // replace 0 with this.state.questionImages[quesNum] when all images are ready.
+              style={answerStyle.img}
+            />
             <View>
-              <Text style={answerStyle.answerText}>{this.state.questions[this.state.quesNum].answers[1]}</Text>
+              <Text style={answerStyle.answerText}>
+                {this.state.questions[this.state.quesNum].answers[1]}
+              </Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -92,11 +100,28 @@ const colors = [
   "#98FB98", // palegreen
 ];
 
-const images = [ // must be an array containing images for all questions.
-  [{uri: "https://keystoneacademic-res.cloudinary.com/image/upload/q_auto,f_auto,w_743,c_limit/element/14/144606_Intro.jpg"},
-  {uri: "https://keystoneacademic-res.cloudinary.com/image/upload/q_auto,f_auto,w_743,c_limit/element/14/144606_Intro.jpg"}],
-  [{uri: "https://keystoneacademic-res.cloudinary.com/image/upload/q_auto,f_auto,w_743,c_limit/element/14/144606_Intro.jpg"},
-  {uri: "https://keystoneacademic-res.cloudinary.com/image/upload/q_auto,f_auto,w_743,c_limit/element/14/144606_Intro.jpg"}],
+const images = [
+  // must be an array containing images for all questions.
+  [
+    {
+      uri:
+        "https://keystoneacademic-res.cloudinary.com/image/upload/q_auto,f_auto,w_743,c_limit/element/14/144606_Intro.jpg",
+    },
+    {
+      uri:
+        "https://keystoneacademic-res.cloudinary.com/image/upload/q_auto,f_auto,w_743,c_limit/element/14/144606_Intro.jpg",
+    },
+  ],
+  [
+    {
+      uri:
+        "https://keystoneacademic-res.cloudinary.com/image/upload/q_auto,f_auto,w_743,c_limit/element/14/144606_Intro.jpg",
+    },
+    {
+      uri:
+        "https://keystoneacademic-res.cloudinary.com/image/upload/q_auto,f_auto,w_743,c_limit/element/14/144606_Intro.jpg",
+    },
+  ],
 ];
 // Energy: Extraversion vs Introversion
 // Information: Sensing vs Intuition
@@ -229,44 +254,44 @@ const mbtiQuestions = [
 ];
 
 const pageStyle = StyleSheet.create({
-screenSection:{
-  flex:1,
-  flexDirection: "column",
-  marginVertical: 20,
-  alignItems: "center",
-  justifyContent: "center",
-},
-questionSection:{
-  flex:1
-},
-answerSection:{
-  flex:8
-},
+  screenSection: {
+    flex: 1,
+    flexDirection: "column",
+    marginVertical: 20,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  questionSection: {
+    flex: 1,
+  },
+  answerSection: {
+    flex: 8,
+  },
 });
 const questionStyle = StyleSheet.create({
-questionText:{
-  marginHorizontal:15,
-  fontSize: 25,
-  textAlign: "center",
-}
+  questionText: {
+    marginHorizontal: 15,
+    fontSize: 25,
+    textAlign: "center",
+  },
 });
 
 const answerStyle = StyleSheet.create({
-answerButton:{
-  flex: 5,
+  answerButton: {
+    flex: 5,
     alignItems: "center",
     backgroundColor: colors[(Math.floor(Math.random()) * 10) % 5],
     margin: 10,
     borderRadius: 10,
-    width : '80%'
-},
-answerText:{
-  textAlign: "center",
-  fontSize: 20,
-},
-img: {
-  flex : 1,
-  width : 0.8*dimensions.width,
-  borderRadius: 10,
-},
-})
+    width: "80%",
+  },
+  answerText: {
+    textAlign: "center",
+    fontSize: 20,
+  },
+  img: {
+    flex: 1,
+    width: 0.8 * dimensions.width,
+    borderRadius: 10,
+  },
+});
