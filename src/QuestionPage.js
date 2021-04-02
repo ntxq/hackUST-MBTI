@@ -1,4 +1,7 @@
 import React from "react";
+
+import Sound from "react-native-sound";
+
 import {
   StyleSheet,
   TouchableOpacity,
@@ -8,8 +11,11 @@ import {
   AppRegistry,
   Text,
   TextInput,
+  Dimensions,
 } from "react-native";
 import { Headline, Button } from "react-native-paper";
+
+const buttonSound = require('E:/ABC/hackUST/sounds/buttonSound.mp3');
 
 export default class QuestionPage extends React.Component {
   constructor(props) {
@@ -51,7 +57,7 @@ export default class QuestionPage extends React.Component {
                 }}
                 style={questionStyles.img}
               />
-              <Text style={questionStyles.answerText}>
+              <Text style={questionStyles.answerText}>npm
                 {answers[this.state.quesNum][0]}
               </Text>
             </TouchableOpacity>
@@ -177,7 +183,7 @@ const questionStyles = StyleSheet.create({
   questionScreen: {
     flex: 1,
     flexDirection: "column",
-    marginVertical: 30,
+    marginVertical: 15,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -187,13 +193,12 @@ const questionStyles = StyleSheet.create({
     flex: 1,
     textAlign: "center",
     fontSize: 25,
-    color: `#9932cc`,
-    backgroundColor: `#fffacd`,
   },
 
   questionAnswers: {
     flex: 8,
     alignItems: "center",
+    width : '90%'
   },
 
   button: {
@@ -201,6 +206,8 @@ const questionStyles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: colors[(Math.floor(Math.random()) * 10) % 5],
     margin: 10,
+    borderRadius: 10,
+    width : '100%'
   },
 
   answerText: {
@@ -208,8 +215,9 @@ const questionStyles = StyleSheet.create({
     textTransform: "capitalize",
   },
   img: {
-    width: 300,
-    height: 100,
+    flex : 1,
+    width: '100%',
+    borderRadius: 10,
   },
   touchable: {
     alignItems: "center",
