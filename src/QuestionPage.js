@@ -1,4 +1,6 @@
 import React from "react";
+
+
 import {
   StyleSheet,
   TouchableOpacity,
@@ -9,14 +11,18 @@ import {
   Text,
   TextInput,
   Pressable,
+  Dimensions
 } from "react-native";
-import { Title } from "react-native-paper";
+import { Title } from "react-native-paper"; 
+
+const dimensions = Dimensions.get('window');
 
 export default class QuestionPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       questions: [],
+      questionImages: [],
       quesNum: 0,
     };
 
@@ -25,18 +31,11 @@ export default class QuestionPage extends React.Component {
     //Randomly select 3 questions from each keyword, then add it to the questions pool.
     for (let i = 0; i < 3; ++i)
       mbtiQuestions.forEach((keyword) => {
-        let randQuestion =
-          keyword.questions[
-            Math.floor(Math.random() * keyword.questions.length)
-          ];
-
-        while (this.state.questions.includes(randQuestion))
-          randQuestion =
-            keyword.questions[
-              Math.floor(Math.random() * keyword.questions.length)
-            ];
-
-        this.state.questions.push(randQuestion);
+        let randQuestion = Math.floor(Math.random() * keyword.questions.length);
+        while (this.state.questions.includes(keyword.questions[randQuestion]))
+          randQuestion = Math.floor(Math.random() * keyword.questions.length);
+        this.state.questions.push(keyword.questions[randQuestion]);
+        this.state.questionImages.push(randQuestion)
       });
   }
 
@@ -48,31 +47,54 @@ export default class QuestionPage extends React.Component {
     else this.props.startResult();
   }
 
+  
   render() {
     return (
-      <View>
-        <View>
-          <Title>{this.state.questions[this.state.quesNum].question}</Title>
+      <View style={pageStyle.screenSection}>
+        <View style={pageStyle.questionSection}>
+          <Text style ={questionStyle.questionText}>{this.state.questions[this.state.quesNum].question}</Text>
         </View>
 
-        <View>
-          <Pressable onPress={this.selectAnswer}>
+        <View style={pageStyle.answerSection}>
+          <TouchableOpacity style ={answerStyle.answerButton} onPress={this.selectAnswer}>
+          <Image
+                source={images[0][0]}
+                style={answerStyle.img}
+              />
             <View>
-              <Text>{this.state.questions[this.state.quesNum].answers[0]}</Text>
+              <Text style={answerStyle.answerText}>{this.state.questions[this.state.quesNum].answers[0]}</Text>
             </View>
-          </Pressable>
+          </TouchableOpacity>
 
-          <Pressable onPress={this.selectAnswer}>
+          <TouchableOpacity style ={answerStyle.answerButton} onPress={this.selectAnswer}>
+          <Image
+                source={images[0][1]} // replace 0 with this.state.questionImages[quesNum] when all images are ready.
+                style={answerStyle.img}
+              />
             <View>
-              <Text>{this.state.questions[this.state.quesNum].answers[0]}</Text>
+              <Text style={answerStyle.answerText}>{this.state.questions[this.state.quesNum].answers[1]}</Text>
             </View>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </View>
     );
   }
 }
 
+const colors = [
+  "#87CEFA", // lightskyblue
+  "#E6E6FA", // lavender
+  "#F08080", // lightcoral
+  "#FFEBCD", // blanchedalmond
+  "#98FB98", // palegreen
+];
+
+const images = [ // must be an array containing images for all questions.
+  [{uri: "https://keystoneacademic-res.cloudinary.com/image/upload/q_auto,f_auto,w_743,c_limit/element/14/144606_Intro.jpg"},
+  {uri: "https://keystoneacademic-res.cloudinary.com/image/upload/q_auto,f_auto,w_743,c_limit/element/14/144606_Intro.jpg"}],
+  [{uri: "https://keystoneacademic-res.cloudinary.com/image/upload/q_auto,f_auto,w_743,c_limit/element/14/144606_Intro.jpg"},
+  {uri: "https://keystoneacademic-res.cloudinary.com/image/upload/q_auto,f_auto,w_743,c_limit/element/14/144606_Intro.jpg"}],
+];
 // Energy: Extraversion vs Introversion
 // Information: Sensing vs Intuition
 // Conclusion: Thinking vs Feeling
@@ -202,3 +224,46 @@ const mbtiQuestions = [
     ],
   },
 ];
+
+const pageStyle = StyleSheet.create({
+screenSection:{
+  flex:1,
+  flexDirection: "column",
+  marginVertical: 20,
+  alignItems: "center",
+  justifyContent: "center",
+},
+questionSection:{
+  flex:1
+},
+answerSection:{
+  flex:8
+},
+});
+const questionStyle = StyleSheet.create({
+questionText:{
+  marginHorizontal:15,
+  fontSize: 25,
+  textAlign: "center",
+}
+});
+
+const answerStyle = StyleSheet.create({
+answerButton:{
+  flex: 5,
+    alignItems: "center",
+    backgroundColor: colors[(Math.floor(Math.random()) * 10) % 5],
+    margin: 10,
+    borderRadius: 10,
+    width : '80%'
+},
+answerText:{
+  textAlign: "center",
+  fontSize: 20,
+},
+img: {
+  flex : 1,
+  width : 0.8*dimensions.width,
+  borderRadius: 10,
+},
+})
