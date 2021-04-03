@@ -9,6 +9,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       progress: "Title",
+      mbti: "",
     };
 
     this.startQuestions = this.startQuestions.bind(this);
@@ -23,10 +24,11 @@ class App extends React.Component {
     });
   }
 
-  startResult() {
+  startResult(result) {
     console.log("result is executed");
     this.setState({
       progress: "Result",
+      mbti: result,
     });
   }
 
@@ -43,7 +45,7 @@ class App extends React.Component {
     } else if (this.state.progress === "Questions") {
       return <QuestionPage startResult={this.startResult} />;
     } else if (this.state.progress === "Result") {
-      return <ResultPage startDetail={this.startDetail} />;
+      return <ResultPage mbti={this.state.mbti} startDetail={this.startDetail} />;
     } else if (this.state.progress === "Detail") {
       return <DetailPage />;
     }
