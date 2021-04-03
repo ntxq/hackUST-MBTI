@@ -1,5 +1,8 @@
 import React from "react";
 import Sound from "react-native-sound";
+
+import ProgressBar from "react-native-progress/Bar";
+
 import {
   StyleSheet,
   TouchableOpacity,
@@ -105,8 +108,8 @@ export default class QuestionPage extends React.Component {
           <Text style={questionStyle.questionText}>
             {this.state.questions[this.state.quesNum].question}
           </Text>
+          <ProgressBar progress={this.state.quesNum / 12} width={200} />
         </View>
-
         <View style={pageStyle.answerSection}>
           <TouchableOpacity
             style={answerStyle.answerButton}
@@ -310,10 +313,11 @@ const pageStyle = StyleSheet.create({
     justifyContent: "center",
   },
   questionSection: {
-    flex: 1,
+    flex: 3,
+    alignItems: "center",
   },
   answerSection: {
-    flex: 8,
+    flex: 14,
   },
 });
 const questionStyle = StyleSheet.create({
@@ -321,6 +325,7 @@ const questionStyle = StyleSheet.create({
     marginHorizontal: 15,
     fontSize: 25,
     textAlign: "center",
+    paddingBottom: 10,
   },
 });
 
