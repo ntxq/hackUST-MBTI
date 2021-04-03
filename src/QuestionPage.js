@@ -1,7 +1,5 @@
 import React from "react";
-
 import Sound from "react-native-sound";
-
 import {
   StyleSheet,
   TouchableOpacity,
@@ -15,10 +13,9 @@ import {
   Dimensions,
 } from "react-native";
 import { Title } from "react-native-paper";
+import * as buttonSound from "../sounds/buttonSound.mp3";
 
 const dimensions = Dimensions.get("window");
-
-const buttonSound = require("E:/ABC/hackUST/sounds/buttonSound.mp3");
 
 export default class QuestionPage extends React.Component {
   constructor(props) {
