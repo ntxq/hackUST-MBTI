@@ -14,11 +14,13 @@ import Item from "./ResultItem.js";
 export default class ResultPage extends React.Component {
   constructor(props) {
     super(props);
+
+    this.startDetail = this.props.startDetail.bind(this);
   }
 
   render() {
     return (
-      <Swiper paginationStyle={{ bottom: 1 }}>
+      <Swiper paginationStyle={{ bottom: 1 }} autoplay={false}>
         <View style={styles.container}>
           <Text style={styles.header1}>Your Preference{"\n"}Analysis</Text>
           <View style={styles.result}>
@@ -31,14 +33,14 @@ export default class ResultPage extends React.Component {
           <Text style={styles.footer}>Swipe to see suggestions➟➟</Text>
         </View>
         <View style={styles.container}>
-          <Text style={styles2.header1}>
+          <Text style={styles2.header1} onPress={console.log}>
             Suggestion{"\n"}(tap to see detail)
           </Text>
           <SafeAreaView style={styles2.container}>
             <SectionList
               sections={DATA}
               keyExtractor={(item, index) => item + index}
-              renderItem={({ item }) => <Item data={item} />}
+              renderItem={({ item }) => <Item data={item} onPress={console.log} />}
               renderSectionHeader={({ section: { theme } }) => (
                 <Text style={styles2.header}>{theme}</Text>
               )}
