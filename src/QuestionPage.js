@@ -24,9 +24,11 @@ export default class QuestionPage extends React.Component {
       questions: [],
       questionImages: [],
       quesNum: 0,
+      mbtiResult: [0, 0, 0, 0],
     };
 
-    this.selectAnswer = this.selectAnswer.bind(this);
+    this.selectAnswerOne = this.selectAnswerOne.bind(this);
+    this.selectAnswerTwo = this.selectAnswerTwo.bind(this);
 
     //Randomly select 3 questions from each keyword, then add it to the questions pool.
     for (let i = 0; i < 3; ++i)
@@ -39,12 +41,61 @@ export default class QuestionPage extends React.Component {
       });
   }
 
-  selectAnswer() {
-    if (this.state.quesNum < 11)
-      this.setState({
-        quesNum: this.state.quesNum + 1,
-      });
-    else this.props.startResult();
+  selectAnswerOne() {
+    const curResult = [...this.state.mbtiResult];
+    switch (this.state.quesNum % 4) {
+      case 0:
+        ++curResult[0];
+        break;
+      case 1:
+        ++curResult[1];
+        break;
+      case 2:
+        ++curResult[2];
+        break;
+      case 3:
+        ++curResult[3];
+        break;
+    }
+    this.setState({ mbtiResult: curResult });
+
+    if (this.state.quesNum === 11) this.finishQuestion();
+    else this.setState({ quesNum: this.state.quesNum + 1 });
+  }
+
+  selectAnswerTwo() {
+    const curResult = [...this.state.mbtiResult];
+    switch (this.state.quesNum % 4) {
+      case 0:
+        --curResult[0];
+        break;
+      case 1:
+        --curResult[1];
+        break;
+      case 2:
+        --curResult[2];
+        break;
+      case 3:
+        --curResult[3];
+        break;
+    }
+
+    this.setState({ mbtiResult: curResult });
+
+    if (this.state.quesNum === 11) this.finishQuestion();
+    else this.setState({ quesNum: this.state.quesNum + 1 });
+  }
+
+  finishQuestion() {
+    const firstMbti = "ESTJ";
+    const secondMbti = "INFP";
+    let mbtiResult = "";
+    for (let i = 0; i < 4; ++i)
+      if (this.state.mbtiResult[i] > 0)
+        mbtiResult = mbtiResult.concat(firstMbti[i]);
+      else mbtiResult = mbtiResult.concat(secondMbti[i]);
+
+    this.props.startResult(mbtiResult);
   }
 
   render() {
@@ -59,7 +110,7 @@ export default class QuestionPage extends React.Component {
         <View style={pageStyle.answerSection}>
           <TouchableOpacity
             style={answerStyle.answerButton}
-            onPress={this.selectAnswer}
+            onPress={this.selectAnswerOne}
           >
             <Image source={images[0][0]} style={answerStyle.img} />
             <View>
@@ -71,7 +122,7 @@ export default class QuestionPage extends React.Component {
 
           <TouchableOpacity
             style={answerStyle.answerButton}
-            onPress={this.selectAnswer}
+            onPress={this.selectAnswerTwo}
           >
             <Image
               source={images[0][1]} // replace 0 with this.state.questionImages[quesNum] when all images are ready.
