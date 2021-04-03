@@ -18,14 +18,13 @@ class App extends React.Component {
   }
 
   startQuestions() {
-    console.log("questions started");
     this.setState({
       progress: "Questions",
     });
   }
 
   startResult(result) {
-    console.log("result is executed");
+    console.log(result);
     this.setState({
       progress: "Result",
       mbti: result,
@@ -33,7 +32,6 @@ class App extends React.Component {
   }
 
   startDetail() {
-    console.log("start detail is executed");
     this.setState({
       progress: "Detail"
     });

@@ -14,7 +14,7 @@ import Item from "./ResultItem.js";
 export default class ResultPage extends React.Component {
   constructor(props) {
     super(props);
-
+ 
     this.startDetail = this.props.startDetail.bind(this);
   }
 
@@ -22,25 +22,28 @@ export default class ResultPage extends React.Component {
     return (
       <Swiper paginationStyle={{ bottom: 1 }} autoplay={false}>
         <View style={styles.container}>
-          <Text style={styles.header1}>Your Preference{"\n"}Analysis</Text>
+          <Text style={styles.header1} onPress={e => console.log(`https://www.traitlab.com/blog/static_assets/images/words_describing_${this.props.mbti.toLowerCase()}.png`)}>Your Preference{"\n"}Analysis</Text>
           <View style={styles.result}>
             <Image
               resizeMode={"center"}
-              style={{ flex: 5, aspectRatio: 1 }}
-              source={require("../res/dummy-word-cloud.jpg")}
+              style={{ flex: 1, aspectRatio: 1}}
+              source={
+                // require("../res/dummy-word-cloud.jpg")
+                {uri: `https://www.traitlab.com/blog/static_assets/images/words_describing_${this.props.mbti.toLowerCase()}.png`}
+              }
             />
           </View>
           <Text style={styles.footer}>Swipe to see suggestions➟➟</Text>
         </View>
         <View style={styles.container}>
-          <Text style={styles2.header1} onPress={console.log}>
+          <Text style={styles2.header1}>
             Suggestion{"\n"}(tap to see detail)
           </Text>
           <SafeAreaView style={styles2.container}>
             <SectionList
               sections={DATA}
               keyExtractor={(item, index) => item + index}
-              renderItem={({ item }) => <Item data={item} onPress={console.log} />}
+              renderItem={({ item }) => <Item data={item} onPress={this.startDetail}  />}
               renderSectionHeader={({ section: { theme } }) => (
                 <Text style={styles2.header}>{theme}</Text>
               )}

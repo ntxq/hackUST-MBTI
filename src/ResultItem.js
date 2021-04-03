@@ -1,16 +1,41 @@
 import React from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 
-const Item = ({ data, onPress }) => {
+// class Item extends React.Component {
+//   constructor(props, data) {
+//     super(props);
+//   }
+  
+//   render(data) {
+//     return (
+//       <View style={styles2.item}>
+//         <View style={{ flex: 1 }}>
+//           <Image
+//             resizeMode={"contain"}
+//             style={{ aspectRatio: 1 }}
+//             source={{ uri: data.uri }}
+//           />
+//         </View>
+//         <View style={{ flex: 2, paddingLeft: 10 }}>
+//           <Text style={styles2.theme}>{data.name}</Text>
+//           <Text style={styles2.detail}>{data.duration}</Text>
+//           <Text style={styles2.detail}>
+//             ✔️{data.destinations.slice(0, 2).join(", ") + "..."}
+//             {data.destinations.length - 2 > 0
+//               ? "\n(" + (data.destinations.length - 2) + " more places)"
+//               : ""}
+//           </Text>
+//           <Text style={styles2.detail}>✔️Cost: HK${data.cost}(estimated)</Text>
+//         </View>
+//       </View>
+//     );
+//   }
+// }
 
-  onClick = () => {
-    console.log(props);
-    console.log(onPress);
-    console.log("test log for on click in item");
-  }
+const Item = ({ onPress, data }) => {
 
   return (
-    <View style={styles2.item} onPress={onClick}>
+    <TouchableOpacity style={styles2.item} onPress={e => onPress()}>
       <View style={{ flex: 1 }}>
         <Image
           resizeMode={"contain"}
@@ -29,7 +54,7 @@ const Item = ({ data, onPress }) => {
         </Text>
         <Text style={styles2.detail}>✔️Cost: HK${data.cost}(estimated)</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
