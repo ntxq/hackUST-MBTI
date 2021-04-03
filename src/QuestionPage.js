@@ -1,5 +1,6 @@
 import React from "react";
 
+import ProgressBar from 'react-native-progress/Bar';
 
 import {
   StyleSheet,
@@ -12,6 +13,7 @@ import {
   TextInput,
   Pressable,
   Dimensions
+  
 } from "react-native";
 import { Title } from "react-native-paper"; 
 
@@ -53,8 +55,8 @@ export default class QuestionPage extends React.Component {
       <View style={pageStyle.screenSection}>
         <View style={pageStyle.questionSection}>
           <Text style ={questionStyle.questionText}>{this.state.questions[this.state.quesNum].question}</Text>
+          <ProgressBar progress={this.state.quesNum/12} width={200} />
         </View>
-
         <View style={pageStyle.answerSection}>
           <TouchableOpacity style ={answerStyle.answerButton} onPress={this.selectAnswer}>
           <Image
@@ -234,10 +236,11 @@ screenSection:{
   justifyContent: "center",
 },
 questionSection:{
-  flex:1
+  flex:3,
+  alignItems: "center",
 },
 answerSection:{
-  flex:8
+  flex:14
 },
 });
 const questionStyle = StyleSheet.create({
@@ -245,7 +248,8 @@ questionText:{
   marginHorizontal:15,
   fontSize: 25,
   textAlign: "center",
-}
+  paddingBottom: 10,
+},
 });
 
 const answerStyle = StyleSheet.create({
