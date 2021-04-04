@@ -1,5 +1,6 @@
 import React from "react";
-import Sound from "react-native-sound";
+import Sound from 'react-native-sound';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 import ProgressBar from "react-native-progress/Bar";
 
@@ -16,10 +17,9 @@ import {
   Dimensions,
 } from "react-native";
 import { Title } from "react-native-paper";
-import * as buttonSound from "../sounds/buttonSound.mp3";
 
 const dimensions = Dimensions.get("window");
-
+var buttonSound = "../sounds/buttonSound.mp3";
 export default class QuestionPage extends React.Component {
   constructor(props) {
     super(props);
@@ -101,21 +101,31 @@ export default class QuestionPage extends React.Component {
     this.props.startResult(mbtiResult);
   }
 
+  isLongQuestion() {
+    if(this.state.questions[this.state.quesNum].length > 20){
+      return true;
+    }
+    else return false;
+  }
+
   render() {
     return (
       <View style={pageStyle.screenSection}>
         <View style={pageStyle.questionSection}>
-          <Text style={questionStyle.questionText}>
+        <ProgressBar progress={this.state.quesNum / 12} width={300} />
+          <Text style={[questionStyle.questionText,
+          {fontSize: RFValue(20)}
+          ]}>
+            {this.state.quesNum+1}.{' '}
             {this.state.questions[this.state.quesNum].question}
           </Text>
-          <ProgressBar progress={this.state.quesNum / 12} width={200} />
         </View>
         <View style={pageStyle.answerSection}>
           <TouchableOpacity
-            style={answerStyle.answerButton}
+            style={[answerStyle.answerButton, {backgroundColor: '#FB9B50'}]}
             onPress={this.selectAnswerOne}
           >
-            <Image source={images[0][0]} style={answerStyle.img} />
+            <Image source={this.state.questions[this.state.quesNum].images[0]} style={answerStyle.img} />
             <View>
               <Text style={answerStyle.answerText}>
                 {this.state.questions[this.state.quesNum].answers[0]}
@@ -124,11 +134,11 @@ export default class QuestionPage extends React.Component {
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={answerStyle.answerButton}
+            style={[answerStyle.answerButton, {backgroundColor:'#5B84C4'}]}
             onPress={this.selectAnswerTwo}
           >
             <Image
-              source={images[0][1]} // replace 0 with this.state.questionImages[quesNum] when all images are ready.
+              source={this.state.questions[this.state.quesNum].images[1]} // replace 0 with this.state.questionImages[quesNum] when all images are ready.
               style={answerStyle.img}
             />
             <View>
@@ -143,13 +153,6 @@ export default class QuestionPage extends React.Component {
   }
 }
 
-const colors = [
-  "#87CEFA", // lightskyblue
-  "#E6E6FA", // lavender
-  "#F08080", // lightcoral
-  "#FFEBCD", // blanchedalmond
-  "#98FB98", // palegreen
-];
 
 const images = [
   // must be an array containing images for all questions.
@@ -195,6 +198,10 @@ const mbtiQuestions = [
           "The moment you arrive is the start of your vacation; go out to the streets and enjoy the night.",
           "Rest in a hotel to recharge energy.",
         ],
+        images: [
+          {uri: "https://live.staticflickr.com/8384/8515281675_52a52db478_b.jpg"},
+          {uri: "https://live.staticflickr.com/2194/2253659828_09e51a6850.jpg"},
+        ],
       },
       {
         id: 4,
@@ -203,6 +210,10 @@ const mbtiQuestions = [
           "Actively engage in conversations with other people.",
           "Feels little uncomfortable to be with unfamiliar people.",
         ],
+        images: [
+          {uri: "https://live.staticflickr.com/104/268964189_d6558c118c_b.jpg"},
+          {uri: "https://live.staticflickr.com/6093/7025676187_94300199d4_b.jpg"}
+        ],
       },
       {
         id: 8,
@@ -210,6 +221,10 @@ const mbtiQuestions = [
         answers: [
           "Cities and tourist attractions where people are crowded.",
           "Calm and peaceful places where you can feel the nature.",
+        ],
+        images: [
+          {uri: "https://live.staticflickr.com/5266/5578052904_7da75c837a_b.jpg"},
+          {uri: "https://live.staticflickr.com/3931/15386964336_0aff31eef5_b.jpg"}
         ],
       },
     ],
@@ -224,6 +239,10 @@ const mbtiQuestions = [
           "I can remember my past trips even if I traveled only once.",
           "I can't remember my past trips well.",
         ],
+        images: [
+          {uri: "https://live.staticflickr.com/3213/2749387908_03c7184262_b.jpg"},
+          {uri: "https://live.staticflickr.com/3804/13442542235_a0b6a8b988_b.jpg"}
+        ],
       },
       {
         id: 5,
@@ -232,6 +251,10 @@ const mbtiQuestions = [
           "The place's popular tourist attractions and restaurants.",
           "The place's history and culture.",
         ],
+        images: [
+          {uri: "https://live.staticflickr.com/2356/2178780826_1257d9a8a2_b.jpg"},
+          {uri: "https://live.staticflickr.com/6020/6195316620_7f283c5ed5_b.jpg"}
+        ],
       },
       {
         id: 6,
@@ -239,6 +262,10 @@ const mbtiQuestions = [
         answers: [
           "Look around other places to check whether they offer the item at a lower price.",
           "Purchase the item now without hesitation.",
+        ],
+        images: [
+          {uri: "https://live.staticflickr.com/2759/4285080931_929f15bae2_b.jpg"},
+          {uri: "https://media3.giphy.com/media/3oKIPa2TdahY8LAAxy/giphy.gif"}
         ],
       },
     ],
@@ -254,6 +281,10 @@ const mbtiQuestions = [
           "Approach your friend directly and discuss how it should be changed",
           "Keep up with the schedule since your friend worked hard on it.",
         ],
+        images: [
+        {uri:"https://live.staticflickr.com/3870/14252302357_58716c3285_b.jpg"},
+        {uri:"https://live.staticflickr.com/5461/8755479568_50583cc089_b.jpg"}
+      ],
       },
       {
         id: 9,
@@ -261,6 +292,10 @@ const mbtiQuestions = [
         answers: [
           "Ponder on reasons why the people developed a such cultures.",
           "Accept them as they are and move on.",
+        ],
+        images: [
+          {uri:"https://live.staticflickr.com/21/26992597_9337f70168_b.jpg"},
+          {uri:"https://live.staticflickr.com/8568/28198573581_f320be5522_b.jpg"}
         ],
       },
       {
@@ -270,8 +305,13 @@ const mbtiQuestions = [
           "Plan ahead objectives you want to gain from the travel.",
           "Great photos to upload on your SNS is what you travel for.",
         ],
+        images: [
+          {uri:"https://live.staticflickr.com/186/467087455_e90b880c92.jpg"},
+          {uri:"https://live.staticflickr.com/173/420563241_b41c8cabcf_b.jpg"}
+        ]
       },
     ],
+    
   },
   {
     keyword: APPROACH,
@@ -283,6 +323,10 @@ const mbtiQuestions = [
           "Pre-check-in and reserve your seat a day before the flight.",
           "Check-in at the kiosk at the airport on the day of departure.",
         ],
+        images: [
+          {uri:"https://live.staticflickr.com/3086/2808836318_3eb7e80381_b.jpg"},
+          {uri:"https://live.staticflickr.com/3700/12335975115_f28168f502_b.jpg"}
+        ]
       },
       {
         id: 7,
@@ -291,6 +335,10 @@ const mbtiQuestions = [
           "Travel as planned before.",
           "Enjoy the unfamiliarity; travel as you feel.",
         ],
+        images: [
+          {uri:"https://live.staticflickr.com/142/317952268_14e96a11bb_b.jpg"},
+          {uri:"https://live.staticflickr.com/65535/50403887282_59b075c8ec_b.jpg"}
+        ]
       },
       {
         id: 11,
@@ -299,6 +347,10 @@ const mbtiQuestions = [
           "You experienced everything you planned.",
           "You had new experience you didn't expect.",
         ],
+        images: [
+          {uri:"https://live.staticflickr.com/8330/8395558118_eff23cf9b6_b.jpg"},
+          {uri:"https://live.staticflickr.com/225/489175320_e8da42206e_b.jpg"}
+        ]
       },
     ],
   },
@@ -308,7 +360,8 @@ const pageStyle = StyleSheet.create({
   screenSection: {
     flex: 1,
     flexDirection: "column",
-    marginVertical: 20,
+    marginTop: 40,
+    marginBottom: 20,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -323,9 +376,8 @@ const pageStyle = StyleSheet.create({
 const questionStyle = StyleSheet.create({
   questionText: {
     marginHorizontal: 15,
-    fontSize: 25,
     textAlign: "center",
-    paddingBottom: 10,
+    paddingTop: 15,
   },
 });
 
@@ -333,7 +385,6 @@ const answerStyle = StyleSheet.create({
   answerButton: {
     flex: 5,
     alignItems: "center",
-    backgroundColor: colors[(Math.floor(Math.random()) * 10) % 5],
     margin: 10,
     borderRadius: 10,
     width: "80%",
