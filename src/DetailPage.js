@@ -63,6 +63,8 @@ export default class DetailPage extends React.Component {
   }
 
   render() {
+    console.log(this.props.mbti, this.props.theme);
+
     let rcmdCards = this.state.recommended.map((i) => (
       <DetailCard
         src={results[i].img}

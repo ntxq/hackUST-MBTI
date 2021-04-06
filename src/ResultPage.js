@@ -14,22 +14,31 @@ import Item from "./ResultItem.js";
 export default class ResultPage extends React.Component {
   constructor(props) {
     super(props);
- 
-    this.startDetail = this.props.startDetail.bind(this);
   }
 
   render() {
     return (
       <Swiper paginationStyle={{ bottom: 1 }} autoplay={false}>
         <View style={styles.container}>
-          <Text style={styles.header1} onPress={e => console.log(`https://www.traitlab.com/blog/static_assets/images/words_describing_${this.props.mbti.toLowerCase()}.png`)}>Your Preference{"\n"}Analysis</Text>
+          <Text
+            style={styles.header1}
+            onPress={(e) =>
+              console.log(
+                `https://www.traitlab.com/blog/static_assets/images/words_describing_${this.props.mbti.toLowerCase()}.png`
+              )
+            }
+          >
+            Your Preference{"\n"}Analysis
+          </Text>
           <View style={styles.result}>
             <Image
               resizeMode={"center"}
-              style={{ flex: 1, aspectRatio: 1}}
+              style={{ flex: 1, aspectRatio: 1 }}
               source={
                 // require("../res/dummy-word-cloud.jpg")
-                {uri: `https://www.traitlab.com/blog/static_assets/images/words_describing_${this.props.mbti.toLowerCase()}.png`}
+                {
+                  uri: `https://www.traitlab.com/blog/static_assets/images/words_describing_${this.props.mbti.toLowerCase()}.png`,
+                }
               }
             />
           </View>
@@ -43,7 +52,12 @@ export default class ResultPage extends React.Component {
             <SectionList
               sections={DATA}
               keyExtractor={(item, index) => item + index}
-              renderItem={({ item }) => <Item data={item} onPress={this.startDetail}  />}
+              renderItem={({ item, section }) => (
+                <Item
+                  data={item}
+                  onPress={this.props.startDetail.bind(this, section.theme)}
+                />
+              )}
               renderSectionHeader={({ section: { theme } }) => (
                 <Text style={styles2.header}>{theme}</Text>
               )}
