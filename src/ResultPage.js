@@ -7,7 +7,11 @@ import {
   SafeAreaView,
   SectionList,
   StatusBar,
+  Share,
+  TouchableOpacity,
 } from "react-native";
+import ImageModal from 'react-native-image-modal';
+
 import Swiper from "react-native-swiper";
 import Item from "./ResultItem.js";
 
@@ -15,6 +19,27 @@ export default class ResultPage extends React.Component {
   constructor(props) {
     super(props);
   }
+
+  onShare = async () => {
+    try {
+      const result = await Share.share({
+        message:
+          `[Share button test] My personality type: ${this.props.mbti.toLowerCase()}`,
+      });
+
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch(error) {
+      alert(error.message);
+    }
+  };
 
   render() {
     return (
@@ -31,18 +56,74 @@ export default class ResultPage extends React.Component {
             Your Preference{"\n"}Analysis
           </Text>
           <View style={styles.result}>
-            <Image
-              resizeMode={"center"}
-              style={{ flex: 1, aspectRatio: 1 }}
-              source={
-                // require("../res/dummy-word-cloud.jpg")
-                {
-                  uri: `https://www.traitlab.com/blog/static_assets/images/words_describing_${this.props.mbti.toLowerCase()}.png`,
-                }
-              }
-            />
+            
+            <View style={{flex: 3, width: "100%", backgroundColor: "skyblue", alignItems: "center", justifyContent: "center"}}>
+              <Text>My Personality Type: {this.props.mbti}</Text>
+              <ImageModal
+                swipeToDismiss={false}
+                resizeMode="contain"
+                imageBackgroundColor="#000000"
+                style={{
+                  height: "100%",
+                  width: 300
+                }}
+                source={{
+                  uri: `https://www.traitlab.com/blog/static_assets/images/words_describing_${this.props.mbti.toLowerCase()}.png`
+                }}
+              />
+            </View>
+            <View style={{flex: 1, width: "100%", backgroundColor: "#2C599D", alignItems: "center", justifyContent: "center"}}><Text style={{color: "white", fontSize: 22}}>Related Theme</Text></View>
+            <View style={{flex: 2, width: "100%", backgroundColor: "ivory", flexDirection: "row"}}>
+              <View style={{backgroundColor: "#5B84C4", flex: 1, alignItems: "center", justifyContent: "center"}}>
+                <Text style={{color: "#f7f2f2"}}>Shopping</Text>
+                <Image
+                  resizeMode={"center"}
+                  style={{ flex: 1, width: "100%" }}
+                  source={
+                    require(`../res/theme/shopping.jpg`)
+                }/>
+              </View>
+              <View style={{backgroundColor: "#5B84C4", flex: 1, alignItems: "center", justifyContent: "center"}}>
+                <Text style={{color: "#f7f2f2"}}>Relax</Text>
+                <Image
+                  resizeMode={"center"}
+                  style={{ flex: 1, width: "100%" }}
+                  source={
+                    require(`../res/theme/relax.jpg`)
+                }/>
+              </View>
+            </View>
+            <View style={{flex: 2, width: "100%", backgroundColor: "ivory", flexDirection: "row"}}>
+              <View style={{backgroundColor: "#5B84C4", flex: 1, alignItems: "center", justifyContent: "center"}}>
+                <Text style={{color: "#f7f2f2"}}>Attractions</Text>
+                <Image
+                  resizeMode={"center"}
+                  style={{ flex: 1, width: "100%" }}
+                  source={
+                    require(`../res/theme/attraction.jpg`)
+                }/>
+              </View>
+              <View style={{backgroundColor: "#5B84C4", flex: 1, alignItems: "center", justifyContent: "center"}}>
+                <Text style={{color: "#f7f2f2"}}>Nature</Text>
+                <Image
+                  resizeMode={"center"}
+                  style={{ flex: 1, width: "100%" }}
+                  source={
+                    require(`../res/theme/nature.jpg`)
+                }/>
+              </View>
+            </View>
           </View>
-          <Text style={styles.footer}>Swipe to see suggestions➟➟</Text>
+          <View style={styles.footer}>
+            <TouchableOpacity style={{flexDirection: "row", justifyContent: "flex-end", alignItems: "center"}} onPress={this.onShare}>
+              <Image
+                source={require('../res/share_logo.png')}
+                style={styles.buttonImageIconStyle}
+              />
+              <Text style={{color: "#fff", fontSize: 14}}>Share your result!</Text>
+            </TouchableOpacity>
+            <Text style={{textAlign: "center", paddingTop: 5}}>Swipe to see suggestions➟➟</Text>
+          </View>
         </View>
         <View style={styles.container}>
           <Text style={styles2.header1}>
@@ -218,19 +299,21 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlignVertical: "center",
     flex: 1,
-    backgroundColor: "lightgrey",
+    backgroundColor: "#faa564",
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10
   },
   header2: {
     textAlign: "center",
     fontSize: 20,
     textAlignVertical: "center",
     flex: 1,
-    backgroundColor: "skyblue",
+    backgroundColor: "#faa564",
   },
   container: {
     flex: 1,
     paddingTop: StatusBar.currentHeight,
-    marginHorizontal: 16,
+    marginHorizontal: 6,
     paddingBottom: 16,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 1 },
@@ -242,15 +325,25 @@ const styles = StyleSheet.create({
   result: {
     flex: 6,
     alignItems: "center",
+    width: "100%"
   },
   footer: {
     flex: 1,
-    backgroundColor: "ivory",
-    textAlignVertical: "bottom",
-    textAlign: "right",
+    backgroundColor: "#6c8ec4",
     fontSize: 20,
+    width: "100%",
     paddingBottom: 8,
+    justifyContent: "flex-end",
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10
   },
+  buttonImageIconStyle: {
+    padding: 10,
+    margin: 5,
+    height: 20,
+    width: 20,
+    resizeMode: 'stretch',
+  }
 });
 
 const styles2 = StyleSheet.create({
@@ -259,7 +352,7 @@ const styles2 = StyleSheet.create({
     fontSize: 20,
     textAlignVertical: "center",
     flex: 1,
-    backgroundColor: "lightgrey",
+    backgroundColor: "#faa564",
     borderBottomEndRadius: 5,
   },
   item: {

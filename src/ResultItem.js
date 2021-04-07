@@ -61,7 +61,7 @@ const Item = ({ onPress, data }) => {
 const styles2 = StyleSheet.create({
   item: {
     flexDirection: "row",
-    backgroundColor: "lightblue",
+    backgroundColor: "#6c8ec4",
     padding: 20,
     marginVertical: 8,
     borderRadius: 8,
