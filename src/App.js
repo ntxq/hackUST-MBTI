@@ -48,7 +48,13 @@ class App extends React.Component {
         <ResultPage mbti={this.state.mbti} startDetail={this.startDetail} />
       );
     } else if (this.state.progress === "Detail") {
-      return <DetailPage theme={this.state.theme} mbti={this.state.mbti} />;
+      return (
+        <DetailPage
+          theme={this.state.theme}
+          mbti={this.state.mbti}
+          startResult={this.startResult.bind(this, this.state.mbti)}
+        />
+      );
     }
   }
 }
