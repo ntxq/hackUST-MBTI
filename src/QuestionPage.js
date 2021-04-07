@@ -15,8 +15,10 @@ import {
   TextInput,
   Pressable,
   Dimensions,
+  PushNotificationIOS,
 } from "react-native";
 import { Title } from "react-native-paper";
+import { left } from "@popperjs/core";
 
 const dimensions = Dimensions.get("window");
 var buttonSound = "../sounds/buttonSound.mp3";
@@ -27,11 +29,13 @@ export default class QuestionPage extends React.Component {
       questions: [],
       questionImages: [],
       quesNum: 0,
+      answers: [0,0,0,0,0,0,0,0,0,0,0,0],
       mbtiResult: [0, 0, 0, 0],
     };
 
     this.selectAnswerOne = this.selectAnswerOne.bind(this);
     this.selectAnswerTwo = this.selectAnswerTwo.bind(this);
+    this.back = this.back.bind(this);
 
     //Randomly select 3 questions from each keyword, then add it to the questions pool.
     for (let i = 0; i < 3; ++i)
@@ -42,49 +46,18 @@ export default class QuestionPage extends React.Component {
         this.state.questions.push(keyword.questions[randQuestion]);
         this.state.questionImages.push(randQuestion);
       });
-  }
+    }
+
 
   selectAnswerOne() {
-    const curResult = [...this.state.mbtiResult];
-    switch (this.state.quesNum % 4) {
-      case 0:
-        ++curResult[0];
-        break;
-      case 1:
-        ++curResult[1];
-        break;
-      case 2:
-        ++curResult[2];
-        break;
-      case 3:
-        ++curResult[3];
-        break;
-    }
-    this.setState({ mbtiResult: curResult });
+    this.state.answers[this.state.quesNum] = 1;
 
     if (this.state.quesNum === 11) this.finishQuestion();
-    else this.setState({ quesNum: this.state.quesNum + 1 });
+    else this.setState({ quesNum: this.state.quesNum + 1 }); 
   }
 
   selectAnswerTwo() {
-    const curResult = [...this.state.mbtiResult];
-    switch (this.state.quesNum % 4) {
-      case 0:
-        --curResult[0];
-        break;
-      case 1:
-        --curResult[1];
-        break;
-      case 2:
-        --curResult[2];
-        break;
-      case 3:
-        --curResult[3];
-        break;
-    }
-
-    this.setState({ mbtiResult: curResult });
-
+    this.state.answers[this.state.quesNum] = 0;
     if (this.state.quesNum === 11) this.finishQuestion();
     else this.setState({ quesNum: this.state.quesNum + 1 });
   }
@@ -93,6 +66,16 @@ export default class QuestionPage extends React.Component {
     const firstMbti = "ESTJ";
     const secondMbti = "INFP";
     let mbtiResult = "";
+    for(let i = 0; i < 4; ++i){
+      for(let j = 0; j < 3; ++j){
+        if(this.state.answers[i*3 + j] == 1){
+          this.state.mbtiResult[i]++;
+        }
+        else if (this.state.answers[i*3 + j] == 0){
+          this.state.mbtiResult[i]--;
+        }
+      }
+    }
     for (let i = 0; i < 4; ++i)
       if (this.state.mbtiResult[i] > 0)
         mbtiResult = mbtiResult.concat(firstMbti[i]);
@@ -101,11 +84,12 @@ export default class QuestionPage extends React.Component {
     this.props.startResult(mbtiResult);
   }
 
-  isLongQuestion() {
-    if(this.state.questions[this.state.quesNum].length > 20){
-      return true;
+  back() {
+    if (this.state.quesNum == 0){
+      return 0;
     }
-    else return false;
+    this.setState({quesNum : this.state.quesNum -1 });
+    this.state.answers[this.state.quesNum] = 0;
   }
 
   render() {
@@ -147,6 +131,15 @@ export default class QuestionPage extends React.Component {
               </Text>
             </View>
           </TouchableOpacity>
+        </View>
+        <View style={pageStyle.backButtonSection}>
+          <TouchableOpacity
+          style={backButtonStyle.backButton}
+          onPress={this.back}>
+            <Text style={backButtonStyle.backText}>
+              Previous
+            </Text>
+          </TouchableOpacity> 
         </View>
       </View>
     );
@@ -362,7 +355,6 @@ const pageStyle = StyleSheet.create({
     flexDirection: "column",
     marginTop: 40,
     marginBottom: 20,
-    alignItems: "center",
     justifyContent: "center",
   },
   questionSection: {
@@ -371,7 +363,15 @@ const pageStyle = StyleSheet.create({
   },
   answerSection: {
     flex: 14,
+    alignItems: "center",
   },
+  backButtonSection: {
+    flex: 2,
+    justifyContent:"flex-start",
+    marginHorizontal:'10%',
+    paddingTop:'5%',
+    alignItems: "flex-start",
+  }
 });
 const questionStyle = StyleSheet.create({
   questionText: {
@@ -399,3 +399,19 @@ const answerStyle = StyleSheet.create({
     borderRadius: 10,
   },
 });
+
+const backButtonStyle = StyleSheet.create({
+  backButton:{
+    flex: 0.5,
+    backgroundColor: "#11224D",
+    width: '30%',
+    alignItems: "center",
+    borderRadius: 5,
+    justifyContent: "center"
+  },
+  backText: {
+    textAlign: 'center',
+    color: "white",
+    textAlignVertical: "center"
+  },
+})
