@@ -8,6 +8,7 @@ import {
   Title,
   Paragraph,
 } from "react-native-paper";
+import GestureRecognizer from "react-native-swipe-gestures";
 
 class DetailCard extends React.Component {
   constructor(props) {
@@ -61,6 +62,10 @@ export default class DetailPage extends React.Component {
     super(props);
   }
 
+  onSwipeRight() {
+    this.props.startResult();
+  }
+
   render() {
     console.log(this.props.mbti, this.props.theme);
 
@@ -78,9 +83,12 @@ export default class DetailPage extends React.Component {
       });
 
     return (
-      <View style={styles.container}>
+      <GestureRecognizer
+        style={styles.container}
+        onSwipeRight={this.onSwipeRight.bind(this)}
+      >
         <ScrollView style={styles.scroll}>{rcmdCards}</ScrollView>
-      </View>
+      </GestureRecognizer>
     );
   }
 }
