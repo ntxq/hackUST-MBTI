@@ -68,8 +68,10 @@ class DetailCard extends React.Component {
             onDismiss={this.hideModal}
             contentContainerStyle={styles.modal}
           >
-            <Title>{this.props.place.title}</Title>
-            <Subheading>{this.props.place.keyword}</Subheading>
+            <Title style={styles.modalTitle}>{this.props.place.title}</Title>
+            <Subheading style={styles.modalSubtitle}>
+              {this.props.place.keyword}
+            </Subheading>
             <Paragraph style={styles.modalPar}>
               {this.props.place.body}
             </Paragraph>
@@ -79,7 +81,9 @@ class DetailCard extends React.Component {
           <Card.Cover source={this.props.place.image} />
           <Card.Title
             title={this.props.place.title}
+            titleStyle={styles.cardTitle}
             subtitle={this.props.place.keyword}
+            subtitleStyle={styles.cardSubtitle}
           />
         </Card>
       </View>
@@ -338,13 +342,26 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 20,
   },
+  cardTitle: {
+    fontFamily: "Ubuntu-Bold",
+  },
+  cardSubtitle: {
+    fontFamily: "Ubuntu-Regular",
+  },
   modal: {
     backgroundColor: "white",
     padding: 20,
     margin: 20,
   },
+  modalTitle: {
+    fontFamily: "Ubuntu-Bold",
+  },
+  modalSubtitle: {
+    fontFamily: "Ubuntu-Medium",
+  },
   modalPar: {
     marginTop: 20,
     textAlign: "left",
+    fontFamily: "Ubuntu-Regular",
   },
 });
