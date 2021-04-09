@@ -1,6 +1,7 @@
 import React from "react";
-import { StyleSheet, ScrollView, View } from "react-native";
+import { StyleSheet, ScrollView, View, Image } from "react-native";
 import {
+  Button,
   Card,
   Portal,
   Modal,
@@ -12,6 +13,7 @@ import {
 } from "react-native-paper";
 import GestureRecognizer from "react-native-swipe-gestures";
 import { results } from "./Places.js";
+import Icon from "react-native-vector-icons/FontAwesome5";
 
 class SwipeText extends React.Component {
   constructor(props) {
@@ -61,6 +63,26 @@ class DetailCard extends React.Component {
   }
 
   render() {
+    const iconsMap = {
+      Relax: "couch",
+      Adventure: "hiking",
+      Family: "child",
+      Local: "language",
+    };
+
+    const icons = this.props.place.theme.map((theme) => {
+      return (
+        <Icon
+          name={iconsMap[theme]}
+          color="grey"
+          key={theme}
+          style={{ marginRight: 10, marginBottom: 3 }}
+        >
+          {" " + theme}
+        </Icon>
+      );
+    });
+
     return (
       <View>
         <Portal>
@@ -73,6 +95,7 @@ class DetailCard extends React.Component {
             <Subheading style={styles.modalSubtitle}>
               {this.props.place.keyword}
             </Subheading>
+            <View style={{ flexDirection: "row" }}>{icons}</View>
             <Paragraph style={styles.modalPar}>
               {this.props.place.body}
             </Paragraph>
@@ -159,7 +182,7 @@ const styles = StyleSheet.create({
     fontFamily: "Ubuntu-Medium",
   },
   modalPar: {
-    marginTop: 20,
+    marginTop: 5,
     textAlign: "left",
     fontFamily: "Ubuntu-Regular",
   },
