@@ -4,12 +4,42 @@ import {
   Card,
   Portal,
   Modal,
+  Snackbar,
   Subheading,
   Title,
+  Text,
   Paragraph,
 } from "react-native-paper";
 import GestureRecognizer from "react-native-swipe-gestures";
 
+class SwipeText extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible: true,
+    };
+
+    this.onDismiss = this.onDismiss.bind(this);
+  }
+
+  onDismiss() {
+    this.setState({
+      visible: false,
+    });
+  }
+
+  render() {
+    return (
+      <Snackbar
+        visible={this.state.visible}
+        onDismiss={this.onDismiss}
+        action={{ label: "Close", onPress: this.onDismiss }}
+      >
+        Swipe left to return to the previous page.
+      </Snackbar>
+    );
+  }
+}
 class DetailCard extends React.Component {
   constructor(props) {
     super(props);
@@ -62,7 +92,7 @@ export default class DetailPage extends React.Component {
     super(props);
   }
 
-  onSwipeRight() {
+  onSwipeLeft() {
     this.props.startResult();
   }
 
@@ -85,9 +115,10 @@ export default class DetailPage extends React.Component {
     return (
       <GestureRecognizer
         style={styles.container}
-        onSwipeRight={this.onSwipeRight.bind(this)}
+        onSwipeLeft={this.onSwipeLeft.bind(this)}
       >
         <ScrollView style={styles.scroll}>{rcmdCards}</ScrollView>
+        <SwipeText />
       </GestureRecognizer>
     );
   }
