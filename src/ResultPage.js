@@ -9,8 +9,12 @@ import {
   StatusBar,
   Share,
   TouchableOpacity,
+  ImageBackground
 } from "react-native";
-import ImageModal from 'react-native-image-modal';
+import {
+  Card,
+} from "react-native-paper";
+
 
 import Swiper from "react-native-swiper";
 import Item from "./ResultItem.js";
@@ -24,7 +28,7 @@ export default class ResultPage extends React.Component {
     try {
       const result = await Share.share({
         message:
-          `[Share button test] My personality type: ${this.props.mbti.toLowerCase()}`,
+          `My personality type: ${this.props.mbti.toLowerCase()+"\n"}Description: ${characterToDescription[this.props.mbti]+"\n"}Recommended Themes: ${characterToType[this.props.mbti].slice().join(", ")}`,
       });
 
       if (result.action === Share.sharedAction) {
@@ -41,111 +45,112 @@ export default class ResultPage extends React.Component {
     }
   };
 
+  src = (str) => { 
+    console.log(str);
+    switch(str.toLowerCase()) {
+      case "adventure":
+        return require("../res/theme/adventure.jpg");
+      case "attractions":
+        return require("../res/theme/attraction.jpg");
+      case "backpacking":
+        return require("../res/theme/backpacking.jpg");
+      case "city":
+        return require("../res/theme/city.jpg");
+      case "family":
+        return require("../res/theme/family.jpg");
+      case "friends":
+        return require("../res/theme/friends.jpg");
+      case "history":
+        return require("../res/theme/history.jpg");
+      case "local":
+        return require("../res/theme/local.jpg");
+      case "luxury":
+        return require("../res/theme/luxury.jpg");
+      case "nature":
+        return require("../res/theme/nature.jpg");
+      case "relax":
+        return require("../res/theme/relax.jpg");
+      case "shopping":
+        return require("../res/theme/shopping.jpg");
+      default:
+        return require("../res/theme/solotrip.jpg");
+    }
+  };
+
   render() {
     return (
-      <Swiper paginationStyle={{ bottom: 1 }} autoplay={false}>
-        <View style={styles.container}>
-          <Text
-            style={styles.header1}
-            onPress={(e) =>
-              console.log(
-                `https://www.traitlab.com/blog/static_assets/images/words_describing_${this.props.mbti.toLowerCase()}.png`
-              )
-            }
-          >
-            Your Preference{"\n"}Analysis
-          </Text>
-          <View style={styles.result}>
-            
-            <View style={{flex: 3, width: "100%", backgroundColor: "skyblue", alignItems: "center", justifyContent: "center"}}>
-              <Text>My Personality Type: {this.props.mbti}</Text>
-              <ImageModal
-                swipeToDismiss={false}
-                resizeMode="contain"
-                imageBackgroundColor="#000000"
-                style={{
-                  height: "100%",
-                  width: 300
-                }}
-                source={{
-                  uri: `https://www.traitlab.com/blog/static_assets/images/words_describing_${this.props.mbti.toLowerCase()}.png`
-                }}
-              />
+      <ImageBackground source={require('../res/TitleImage.png')} style={styles.image}>
+        <Swiper paginationStyle={{ bottom: 1 }} autoplay={false}>
+          <View style={styles.container}>
+            <Text
+              style={styles.header}
+              onPress={(e) =>
+                console.log(
+                  `https://www.traitlab.com/blog/static_assets/images/words_describing_${this.props.mbti.toLowerCase()}.png`
+                )
+              }
+            >
+              Preference Analysis
+            </Text>
+            <View style={styles.result}>
+              <View style={styles.desc}>
+                <Text style={{fontFamily: 'Ubuntu-Bold', textAlign: 'center'}}>My Personality Type: {this.props.mbti + "\n"}</Text>
+                <Text style={{fontFamily: 'Ubuntu'}}>{"Description: " + characterToDescription[this.props.mbti]}</Text>
+              </View>
+              <View style={{flex: 1, width: "100%", backgroundColor: "#2C599D", alignItems: "center", justifyContent: "center", opacity: 0.9}}>
+                <Text style={{color: "white", fontSize: 22, fontFamily: 'Ubuntu-Bold'}}>Related Theme</Text>
+              </View>
+              {[0, 1].map(row => {
+                return (<View style={{flex: 2, width: "100%", backgroundColor: "ivory", flexDirection: "row", opacity: 0.9}}>
+                {
+                characterToType[this.props.mbti].slice(row * 2, row * 2 + 2).map(theme => {
+                  return (<View style={{backgroundColor: "#5B84C4", flex: 1, alignItems: "center", justifyContent: "center", opacity: 0.9}}>
+                      <Text style={{color: "#f7f2f2", fontSize: 14, fontWeight: "bold", fontFamily: "Ubuntu-Regular"}}>{theme.toLowerCase()}</Text>
+                      <Image
+                        resizeMode={"center"}
+                        style={{ flex: 1, width: "100%" }}
+                        source={
+                          this.src(theme)
+                      }/>
+                    </View>);
+                })
+                }
+              </View>);
+              })}
             </View>
-            <View style={{flex: 1, width: "100%", backgroundColor: "#2C599D", alignItems: "center", justifyContent: "center"}}><Text style={{color: "white", fontSize: 22}}>Related Theme</Text></View>
-            <View style={{flex: 2, width: "100%", backgroundColor: "ivory", flexDirection: "row"}}>
-              <View style={{backgroundColor: "#5B84C4", flex: 1, alignItems: "center", justifyContent: "center"}}>
-                <Text style={{color: "#f7f2f2"}}>{characterToType[this.props.mbti][0]}</Text>
+            <View style={styles.footer}>
+              <TouchableOpacity style={{flexDirection: "row", justifyContent: "flex-end", alignItems: "center"}} onPress={this.onShare}>
                 <Image
-                  resizeMode={"center"}
-                  style={{ flex: 1, width: "100%" }}
-                  source={
-                    require(`../res/theme/solotrip.jpg`)
-                }/>
-              </View>
-              <View style={{backgroundColor: "#5B84C4", flex: 1, alignItems: "center", justifyContent: "center"}}>
-                <Text style={{color: "#f7f2f2"}}>{characterToType[this.props.mbti][1]}</Text>
-                <Image
-                  resizeMode={"center"}
-                  style={{ flex: 1, width: "100%" }}
-                  source={
-                    require(`../res/theme/relax.jpg`)
-                }/>
-              </View>
-            </View>
-            <View style={{flex: 2, width: "100%", backgroundColor: "ivory", flexDirection: "row"}}>
-              <View style={{backgroundColor: "#5B84C4", flex: 1, alignItems: "center", justifyContent: "center"}}>
-                <Text style={{color: "#f7f2f2"}}>{characterToType[this.props.mbti][2]}</Text>
-                <Image
-                  resizeMode={"center"}
-                  style={{ flex: 1, width: "100%" }}
-                  source={
-                    require(`../res/theme/attraction.jpg`)
-                }/>
-              </View>
-              <View style={{backgroundColor: "#5B84C4", flex: 1, alignItems: "center", justifyContent: "center"}}>
-                <Text style={{color: "#f7f2f2"}}>{characterToType[this.props.mbti][3]}</Text>
-                <Image
-                  resizeMode={"center"}
-                  style={{ flex: 1, width: "100%" }}
-                  source={
-                    require(`../res/theme/nature.jpg`)
-                }/>
-              </View>
-            </View>
-          </View>
-          <View style={styles.footer}>
-            <TouchableOpacity style={{flexDirection: "row", justifyContent: "flex-end", alignItems: "center"}} onPress={this.onShare}>
-              <Image
-                source={require('../res/share_logo.png')}
-                style={styles.buttonImageIconStyle}
-              />
-              <Text style={{color: "#fff", fontSize: 14}}>Share your result!</Text>
-            </TouchableOpacity>
-            <Text style={{textAlign: "center", paddingTop: 5}}>Swipe to see suggestions➟➟</Text>
-          </View>
-        </View>
-        <View style={styles.container}>
-          <Text style={styles2.header1}>
-            Suggestion{"\n"}(tap to see detail)
-          </Text>
-          <SafeAreaView style={styles2.container}>
-            <SectionList
-              sections={DATA}
-              keyExtractor={(item, index) => item + index}
-              renderItem={({ item, section }) => (
-                <Item
-                  data={item}
-                  onPress={this.props.startDetail.bind(this, section.theme)}
+                  source={require('../res/share_logo.png')}
+                  style={styles.buttonImageIconStyle}
                 />
-              )}
-              renderSectionHeader={({ section: { theme } }) => (
-                <Text style={styles2.header}>{theme}</Text>
-              )}
-            />
-          </SafeAreaView>
-        </View>
-      </Swiper>
+                <Text style={{color: "#fff", fontSize: 25, fontFamily: "NanumBrushScript-Regular"}}>Share your result!</Text>
+              </TouchableOpacity>
+              <Text style={{textAlign: "center", paddingTop: 5, fontFamily: "Ubuntu-Medium", fontWeight: "bold"}}>Swipe to see suggestions➟➟</Text>
+            </View>
+          </View>
+          <View style={styles.container}>
+            <Text style={styles2.header1}>
+              Suggestion{"\n"}(tap to see detail)
+            </Text>
+            <SafeAreaView style={styles2.container}>
+              <SectionList
+                sections={DATA}
+                keyExtractor={(item, index) => item + index}
+                renderItem={({ item, section }) => (
+                  <Item
+                    data={item}
+                    onPress={this.props.startDetail.bind(this, section.theme)}
+                  />
+                )}
+                renderSectionHeader={({ section: { theme } }) => (
+                  <Text style={styles2.header}>{theme}</Text>
+                )}
+              />
+            </SafeAreaView>
+          </View>
+        </Swiper>
+      </ImageBackground>
     );
   }
 }
@@ -153,12 +158,12 @@ export default class ResultPage extends React.Component {
 Themes: Relax, Family, Adventure, Local
 
 [x] INTJ - Solo trip to a historical location
-[x] INTP - Secluded nature retreat
-[x] ENTJ - Backpacking journey
-[x] ENTP - Lively city trip
-[x] INFJ - Volunteering in a relaxing location
-[x] INFP - Creative getaway with a couple of close friends
-[x] ENFJ - Off-the-beaten path
+[x] INTP - "Secluded nature retreat"
+[x] ENTJ - "Backpacking journey"
+[x] ENTP - "Lively city trip"
+[x] INFJ - "Volunteering in a relaxing location"
+[x] INFP - "Creative getaway with a couple of close friends"
+[x] ENFJ - "Off-the-beaten path"
 [x] ENFP - Mingle with the crowds in a bustling city
 [x] ISTJ - History-packed excursion with a close friend
 [x] ISFJ - Organized camping trip with a small group of friends
@@ -171,21 +176,40 @@ Themes: Relax, Family, Adventure, Local
 */
 const characterToType = {
   "INTJ": ["History", "Solo Trip", "Local", ],
-  "INTP": ["Nature", "Family", "Local", ""],
+  "INTP": ["Nature", "Family", "Local", "Relax"],
   "ENTJ": ["Backpacking", "Adventure", "Nature", "Friends"],
   "ENTP": ["City", "Adventure", "Attractions", "Local"],
-  "INFJ": ["Family", "Nature", "Volunteer"],
+  "INFJ": ["Family", "Nature", "Volunteer", "Relax"],
   "INFP": ["Friends", "City", "Attractions", "Family"],
-  "ENFJ": ["Solo Trip", "Nature", "Adventure", ""],
+  "ENFJ": ["Solo Trip", "Nature", "Adventure", "Attractions"],
   "ENFP": ["City", "Friends", "Festival", "Local"],
-  "ISTJ": ["City", "Adventure", "Attractions", ""],
-  "ISFJ": ["Family", "Nature", ""],
-  "ESTJ": ["History", "Solo Trip", "Local", ],
-  "ESFJ": ["Family", "Nature", "City", ""],
-  "ISTP": ["Nature", "Family", "Local", ""],
-  "ISFP": ["Nature", "Adventure", "Friends", ""],
-  "ESTP": ["Adventure", "Nature", "Attractions", ""],
+  "ISTJ": ["City", "Adventure", "Attractions", "Friends"],
+  "ISFJ": ["Family", "Nature", "Friends", "Adventure"],
+  "ESTJ": ["History", "Solo Trip", "Local", "City"],
+  "ESFJ": ["Family", "Nature", "City", "Relax"],
+  "ISTP": ["Nature", "Family", "Local", "City"],
+  "ISFP": ["Nature", "Adventure", "Friends", "Attractions"],
+  "ESTP": ["Adventure", "Nature", "Attractions", "Friends"],
   "ESFP": ["Luxury", "City", "Attractions", "Relax"],
+}
+
+const characterToDescription = {
+  "INTJ": "Solo trip to a historical location",
+  "INTP": "Secluded nature retreat",
+  "ENTJ": "Backpacking journey",
+  "ENTP": "Lively city trip",
+  "INFJ": "Volunteering in a relaxing location",
+  "INFP": "Creative getaway with a couple of close friends",
+  "ENFJ": "Off-the-beaten path",
+  "ENFP": "Mingle with the crowds in a bustling city",
+  "ISTJ": "History-packed excursion with a close friend",
+  "ISFJ": "Organized camping trip with a small group of friends",
+  "ESTJ": "Social city with a big group of friends",
+  "ESFJ": "Picture-perfect vacation with the family",
+  "ISTP": "Hands-on cultural experience",
+  "ISFP": "Road trip with a few close friends",
+  "ESTP": "High-adrenaline adventure",
+  "ESFP": "LuxLuxury getawayury",
 }
 
 const theme = {
@@ -336,14 +360,26 @@ const DATA = [
 ];
 
 const styles = StyleSheet.create({
-  header1: {
+  header: {
     textAlign: "center",
-    fontSize: 20,
+    fontSize: 25,
+    fontFamily: 'Ubuntu-Bold',
+    color: 'white',
     textAlignVertical: "center",
     flex: 1,
-    backgroundColor: "#faa564",
+    backgroundColor: "#f98125",
+    opacity: 0.9,
     borderTopLeftRadius: 10,
-    borderTopRightRadius: 10
+    borderTopRightRadius: 10,
+  },
+  desc: {
+    flex: 3,
+    width: "100%", 
+    backgroundColor: "#fb9b50", 
+    alignItems: "center", 
+    justifyContent: "center", 
+    opacity: 0.9, 
+    marginBottom: 10
   },
   header2: {
     textAlign: "center",
@@ -357,12 +393,14 @@ const styles = StyleSheet.create({
     paddingTop: StatusBar.currentHeight,
     marginHorizontal: 6,
     paddingBottom: 16,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.8,
     shadowRadius: 2,
     elevation: 5,
     // alignItems: "center"
+  },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center"
   },
   result: {
     flex: 6,

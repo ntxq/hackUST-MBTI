@@ -1,5 +1,5 @@
 /*
-Themes: Relax, Family, Adventure, Local
+Themes: Relax, Family, Adventure, Local, Attraction, Backpacking, Friends, History, Local, Luxury, Nature, 
 
 [x] INTJ - Solo trip to a historical location
 [x] INTP - Secluded nature retreat
@@ -198,4 +198,39 @@ export const results = [
     The complex is also home to three five-star hotels, a boutique hotel, three office towers and 270 serviced apartments.`,
     cite: `Pacific Place (Hong Kong). (2021, March 3). In Wikipedia. https://en.wikipedia.org/wiki/Pacific_Place_(Hong_Kong)`,
   },
+  {
+    title: "Hong Kong Film Archive",
+    keyword: "Art, Experience",
+    mbti: "INTJ",
+    theme: ["Relax", "Family"],
+    image: require("../res/DetailPage/hkfa.jpg"),
+    body: `\tThe Hong Kong Film Archive is a treasure trove for cinephiles.
+  Not only is it used for storage and preservation, the five-storey building also houses world-class facilities for screenings and exhibitions.
+  While its catalogue includes films from all over the world, the main draw is undoubtedly the vast collection of Hong Kong classics, from kung fu flicks to new-wave gems.
+  Film buffs should set aside ample time to visit the Resource Centre, which boasts more than 400,000 books, media clippings and audio-visual materials.`,
+    cite: `Hong Kong Film Archive. (2021, March 3). In Hong Kong Tourism Board. https://www.discoverhongkong.com/us/explore/arts/best-museums-in-hong-kong-for-art-and-culture-lovers.html`,
+  },
+  {
+    title: "Tung Ping Chau",
+    keyword: "Nature reserve getaway",
+    mbti: "INTP",
+    theme: ["Nature", "Relax"],
+    image: require("../res/DetailPage/tpc.jpg"),
+    body: `\tTung Ping Chau sits in Mirs Bay of the northeastern waters. It is the easternmost outlying island of Hong Kong. 
+  This crescent-shaped island, measuring 600 metres long and 2000 metres wide, is renowned for strange rock formations. 
+  Unlike most other rock types across the territory, the island is made up of sedimentary rock including siltstone, dolomitic siltstone, mudstone and chert.`,
+    cite: `Tung Ping Chau. (2021, March 3). In HK UNESCO Global Geopark. https://www.geopark.gov.hk/en_s4f6.htm`,
+  },
+  {
+    title: "PMQ",
+    keyword: "Experience local artisan culture",
+    mbti: "ISTP",
+    theme: ["Local", "Shopping", "History"],
+    image: require("../res/DetailPage/pmq.jpg"),
+    body: `\tWith so many homegrown and small, locally-based brands, PMQ is the perfect place to experience Hong Kong’s local artisan culture. 
+  The site itself was first established as The Central School in 1889. More than half a century later, it was transformed into the Hollywood Road Police Married Quarters, 
+  then finally in 2014, the complex was revitalised into what we know now as PMQ — a creative hub filled with design studios and workshops, showcasing a wide array of products, 
+  including fashion and accessories, gifts, homeware, small furniture, and other lifestyle goods.`,
+    cite: `PMQ. (2021, March 3). In Hong Kong Tourism Board. https://www.discoverhongkong.com/us/explore/arts/experience-hong-kong-s-local-artisan-culture-at-pmq.html`,
+  }
 ];
