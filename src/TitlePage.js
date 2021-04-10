@@ -211,43 +211,41 @@ export default class TitlePage extends React.Component {
 
   render() {
     return (
-      <View style={TitleStyles.TitleView}> 
-        <ImageBackground source={require('../res/TitleImage.png')} style={TitleStyles.Image}>
-
-            <View style={{flex: 3}}>
-              <FadeInView>
-                <Title style={TitleStyles.TitleText1}>TRAVEL{"\n"}PLANNER</Title>
-              </FadeInView>
-            </View>
-            
-            
-            <View style={TitleStyles.TitleView2}>
-              <FadeInDelayView1>
-                <Text style={TitleStyles.TitleText2}>
-                  - Answer the questions{"\n"}
-                </Text>
-              </FadeInDelayView1>
-              <FadeInDelayView2>
-                <Text style={TitleStyles.TitleText2}>
-                  - Reveal your personality{"\n"}
-                </Text>
-              </FadeInDelayView2>
-              <FadeInDelayView3>
-                <Text style={TitleStyles.TitleText2}> 
-                  - Themed travel plan{"\n"}   based on your personality{"\n"}   will be recommended
-                </Text>
-              </FadeInDelayView3>
-              <View style={{flex: 1}}></View>
-            </View>  
-            <View style={{flex: 1.5}}>
-              <FlashView>
-                <TouchableOpacity style={TitleStyles.ButtonView} onPress={this.props.startButton}>
-                  <Text style={TitleStyles.ButtonText}>Begin{"\n"}Your Journey</Text>
-                </TouchableOpacity>
-              </FlashView>
-      </View>
-        </ImageBackground>
-      </View>
+      
+      <ImageBackground source={require('../res/TitleImage.png')} style={TitleStyles.Image}>
+        <View style={{flex: 3}}>
+          <FadeInView>
+            <Title style={TitleStyles.TitleText1}>TRAVEL{"\n"}PLANNER</Title>
+          </FadeInView>
+        </View>
+        
+          
+        <View style={TitleStyles.TitleView2}>
+          <FadeInDelayView1>
+            <Text style={TitleStyles.TitleText2}>
+              - Answer the questions{"\n"}
+            </Text>
+          </FadeInDelayView1>
+          <FadeInDelayView2>
+            <Text style={TitleStyles.TitleText2}>
+              - Reveal your personality{"\n"}
+            </Text>
+          </FadeInDelayView2>
+          <FadeInDelayView3>
+            <Text style={TitleStyles.TitleText2}> 
+              - Themed travel plan{"\n"}   based on your personality{"\n"}   will be recommended
+            </Text>
+          </FadeInDelayView3>
+          <View style={{flex: 1}}></View>
+        </View>  
+        <View style={{flex: 1.5}}>
+          <FlashView>
+            <TouchableOpacity style={TitleStyles.ButtonView} onPress={this.props.startButton}>
+              <Text style={TitleStyles.ButtonText}>Begin{"\n"}Your Journey</Text>
+            </TouchableOpacity>
+          </FlashView>
+        </View>
+      </ImageBackground>
     );
   }
 }
@@ -262,15 +260,6 @@ const orange1 = '#F98125';
 const orange2 = '#FB9B50';
 
 const TitleStyles = StyleSheet.create({
-
-  MainContainer :{
- 
-    // Setting up View inside content in Vertically center.
-    justifyContent: 'center',
-    flex:1,
-    margin: 10
-     
-    },
 
   TitleView: {
     alignItems: "center",
