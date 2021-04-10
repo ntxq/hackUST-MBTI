@@ -75,16 +75,16 @@ export default class ResultPage extends React.Component {
             <View style={{flex: 1, width: "100%", backgroundColor: "#2C599D", alignItems: "center", justifyContent: "center"}}><Text style={{color: "white", fontSize: 22}}>Related Theme</Text></View>
             <View style={{flex: 2, width: "100%", backgroundColor: "ivory", flexDirection: "row"}}>
               <View style={{backgroundColor: "#5B84C4", flex: 1, alignItems: "center", justifyContent: "center"}}>
-                <Text style={{color: "#f7f2f2"}}>Shopping</Text>
+                <Text style={{color: "#f7f2f2"}}>{characterToType[this.props.mbti][0]}</Text>
                 <Image
                   resizeMode={"center"}
                   style={{ flex: 1, width: "100%" }}
                   source={
-                    require(`../res/theme/shopping.jpg`)
+                    require(`../res/theme/solotrip.jpg`)
                 }/>
               </View>
               <View style={{backgroundColor: "#5B84C4", flex: 1, alignItems: "center", justifyContent: "center"}}>
-                <Text style={{color: "#f7f2f2"}}>Relax</Text>
+                <Text style={{color: "#f7f2f2"}}>{characterToType[this.props.mbti][1]}</Text>
                 <Image
                   resizeMode={"center"}
                   style={{ flex: 1, width: "100%" }}
@@ -95,7 +95,7 @@ export default class ResultPage extends React.Component {
             </View>
             <View style={{flex: 2, width: "100%", backgroundColor: "ivory", flexDirection: "row"}}>
               <View style={{backgroundColor: "#5B84C4", flex: 1, alignItems: "center", justifyContent: "center"}}>
-                <Text style={{color: "#f7f2f2"}}>Attractions</Text>
+                <Text style={{color: "#f7f2f2"}}>{characterToType[this.props.mbti][2]}</Text>
                 <Image
                   resizeMode={"center"}
                   style={{ flex: 1, width: "100%" }}
@@ -104,7 +104,7 @@ export default class ResultPage extends React.Component {
                 }/>
               </View>
               <View style={{backgroundColor: "#5B84C4", flex: 1, alignItems: "center", justifyContent: "center"}}>
-                <Text style={{color: "#f7f2f2"}}>Nature</Text>
+                <Text style={{color: "#f7f2f2"}}>{characterToType[this.props.mbti][3]}</Text>
                 <Image
                   resizeMode={"center"}
                   style={{ flex: 1, width: "100%" }}
@@ -148,6 +148,48 @@ export default class ResultPage extends React.Component {
       </Swiper>
     );
   }
+}
+/*
+Themes: Relax, Family, Adventure, Local
+
+[x] INTJ - Solo trip to a historical location
+[x] INTP - Secluded nature retreat
+[x] ENTJ - Backpacking journey
+[x] ENTP - Lively city trip
+[x] INFJ - Volunteering in a relaxing location
+[x] INFP - Creative getaway with a couple of close friends
+[x] ENFJ - Off-the-beaten path
+[x] ENFP - Mingle with the crowds in a bustling city
+[x] ISTJ - History-packed excursion with a close friend
+[x] ISFJ - Organized camping trip with a small group of friends
+[x] ESTJ - Social city with a big group of friends
+[x] ESFJ - Picture-perfect vacation with the family
+[x] ISTP - Hands-on cultural experience
+[x] ISFP - Road trip with a few close friends
+[x] ESTP - High-adrenaline adventure
+[x] ESFP - Luxury getaway
+*/
+const characterToType = {
+  "INTJ": ["History", "Solo Trip", "Local", ],
+  "INTP": ["Nature", "Family", "Local", ""],
+  "ENTJ": ["Backpacking", "Adventure", "Nature", "Friends"],
+  "ENTP": ["City", "Adventure", "Attractions", "Local"],
+  "INFJ": ["Family", "Nature", "Volunteer"],
+  "INFP": ["Friends", "City", "Attractions", "Family"],
+  "ENFJ": ["Solo Trip", "Nature", "Adventure", ""],
+  "ENFP": ["City", "Friends", "Festival", "Local"],
+  "ISTJ": ["City", "Adventure", "Attractions", ""],
+  "ISFJ": ["Family", "Nature", ""],
+  "ESTJ": ["History", "Solo Trip", "Local", ],
+  "ESFJ": ["Family", "Nature", "City", ""],
+  "ISTP": ["Nature", "Family", "Local", ""],
+  "ISFP": ["Nature", "Adventure", "Friends", ""],
+  "ESTP": ["Adventure", "Nature", "Attractions", ""],
+  "ESFP": ["Luxury", "City", "Attractions", "Relax"],
+}
+
+const theme = {
+
 }
 
 const DATA = [
