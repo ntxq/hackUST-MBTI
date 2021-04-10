@@ -3,6 +3,8 @@ import TitlePage from "./TitlePage";
 import QuestionPage from "./QuestionPage";
 import ResultPage from "./ResultPage";
 import DetailPage from "./DetailPage";
+import Loading1 from "./Loading1"
+import Loading2 from "./Loading2"
 
 class App extends React.Component {
   constructor(props) {
@@ -12,11 +14,25 @@ class App extends React.Component {
       mbti: "",
       theme: "",
     };
-
     this.startQuestions = this.startQuestions.bind(this);
     this.startResult = this.startResult.bind(this);
     this.startDetail = this.startDetail.bind(this);
+    this.startLoading1 = this.startLoading1.bind(this);
+    this.startLoading2 = this.startLoading2.bind(this);
   }
+
+  startLoading1() {
+    this.setState({
+      progress: "Loading1",
+    });
+  }
+
+  startLoading2() {
+    this.setState({
+      progress: "Loading2",
+    });
+  };
+
 
   startQuestions() {
     this.setState({
@@ -40,7 +56,9 @@ class App extends React.Component {
 
   render() {
     if (this.state.progress === "Title") {
-      return <TitlePage startButton={this.startQuestions} />;
+      return <TitlePage startButton={this.startLoading2} />;
+    } else if (this.state.progress === "Loading2") {
+      return <Loading2 startQuestion={this.startQuestions} />;
     } else if (this.state.progress === "Questions") {
       return <QuestionPage startResult={this.startResult} />;
     } else if (this.state.progress === "Result") {
