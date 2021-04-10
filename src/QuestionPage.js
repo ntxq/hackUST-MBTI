@@ -20,6 +20,7 @@ import { left } from "@popperjs/core";
 
 const dimensions = Dimensions.get("window");
 var buttonSound = "../sounds/buttonSound.mp3";
+
 export default class QuestionPage extends React.Component {
   constructor(props) {
     super(props);
@@ -93,9 +94,26 @@ export default class QuestionPage extends React.Component {
   render() {
     return (
       <View style={pageStyle.screenSection}>
+        <View style={pageStyle.topSection}>
+        <TouchableOpacity
+          style={topSectionStyle.backButton}
+          onPress={this.back}>
+            <Text style={topSectionStyle.backText}>
+            &#8592;
+            </Text>
+          </TouchableOpacity> 
+          <View style={topSectionStyle.progressSection}>
+          <ProgressBar progress={this.state.quesNum / 12} width={200} />
+          </View>
+          <View style={topSectionStyle.numberSection}>
+            <Text style={topSectionStyle.numberText}>
+            {this.state.quesNum+1} {" / 12"}
+            </Text>
+          </View>
+          
+        </View>
         <View style={pageStyle.questionSection}>
-          <ProgressBar progress={this.state.quesNum / 12} width={300} />
-          <Text style={[questionStyle.questionText, { fontSize: RFValue(20) }]}>
+          <Text style={[questionStyle.questionText, { fontSize: RFValue(23) }]}>
             {this.state.quesNum + 1}.{" "}
             {this.state.questions[this.state.quesNum].question}
           </Text>
@@ -117,7 +135,7 @@ export default class QuestionPage extends React.Component {
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={[answerStyle.answerButton, { backgroundColor: "#5B84C4" }]}
+            style={[answerStyle.answerButton, { backgroundColor:"#FB9B50" }]}
             onPress={this.selectAnswerTwo}
           >
             <Image
@@ -130,15 +148,6 @@ export default class QuestionPage extends React.Component {
               </Text>
             </View>
           </TouchableOpacity>
-        </View>
-        <View style={pageStyle.backButtonSection}>
-          <TouchableOpacity
-          style={backButtonStyle.backButton}
-          onPress={this.back}>
-            <Text style={backButtonStyle.backText}>
-              Previous
-            </Text>
-          </TouchableOpacity> 
         </View>
       </View>
     );
@@ -408,33 +417,34 @@ const mbtiQuestions = [
 
 const pageStyle = StyleSheet.create({
   screenSection: {
+    backgroundColor: "#11224D",
     flex: 1,
     flexDirection: "column",
-    marginTop: 40,
-    marginBottom: 20,
     justifyContent: "center",
+  //  backgroundColor: "#11224D"
+  },
+  topSection: {
+    flex: 1.3,
+    flexDirection: "row",
+    backgroundColor: "#FB9B50",
+    justifyContent: "flex-end"
   },
   questionSection: {
-    flex: 3,
+    flex: 2,
     alignItems: "center",
   },
   answerSection: {
     flex: 14,
     alignItems: "center",
   },
-  backButtonSection: {
-    flex: 2,
-    justifyContent:"flex-start",
-    marginHorizontal:'10%',
-    paddingTop:'5%',
-    alignItems: "flex-start",
-  }
 });
 const questionStyle = StyleSheet.create({
   questionText: {
     marginHorizontal: 15,
     textAlign: "center",
     paddingTop: 15,
+    color: 'white',
+    fontFamily: 'NanumBrushScript-Regular',
   },
 });
 
@@ -448,27 +458,45 @@ const answerStyle = StyleSheet.create({
   },
   answerText: {
     textAlign: "center",
-    fontSize: 20,
+    fontSize: 26,
+    fontFamily: 'NanumBrushScript-Regular',
   },
   img: {
     flex: 1,
     width: 0.8 * dimensions.width,
     borderRadius: 10,
+    borderColor:"#FB9B50",
+    borderWidth: 10,
   },
 });
 
-const backButtonStyle = StyleSheet.create({
-  backButton:{
-    flex: 0.5,
-    backgroundColor: "#11224D",
-    width: '30%',
+const topSectionStyle = StyleSheet.create({
+  progressSection:{
+    flex: 6,
     alignItems: "center",
-    borderRadius: 5,
+    justifyContent: "center",
+  },
+  numberSection:{
+    flex: 2,
+    alignItems: "center",
     justifyContent: "center"
   },
-  backText: {
-    textAlign: 'center',
-    color: "white",
-    textAlignVertical: "center"
+  backButton:{
+    flex: 1.5,
+    alignItems: "center",
+    borderRadius: 5,
+    justifyContent: "center",
+    textAlignVertical: "center",
   },
+  backText: {
+    color: "white",
+    fontSize: RFValue(30),
+    fontWeight:"bold",
+    justifyContent: "center",
+  },
+  numberText: {
+    color: "white",
+    fontSize: RFValue(17),
+    fontWeight: "bold",
+  }
 })

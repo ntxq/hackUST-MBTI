@@ -94,7 +94,7 @@ export default class DetailPage extends React.Component {
 }
 
 /*
-Themes: Relax, Family, Adventure, Local
+Themes: Relax, Family, Adventure, Local, Attraction, Backpacking, Friends, History, Local, Luxury, Nature, 
 
 [x] INTJ - Solo trip to a historical location
 [x] INTP - Secluded nature retreat
