@@ -91,9 +91,24 @@ export default class QuestionPage extends React.Component {
     this.state.answers[this.state.quesNum] = 0;
   }
 
+  isLong(text) {
+    if(text.length < 30)
+    return {fontSize : RFValue(30)}
+    else if(text.length < 40)
+    return {fontSize : RFValue(26)}
+    else if(text.length < 50)
+    return {fontSize : RFValue(22)}
+    else if(text.length < 60)
+    return {fontSize : RFValue(20)}
+    else if(text.length >= 60)
+    return {fontSize : RFValue(18)}
+  }
+
   render() {
+    
     return (
       <View style={pageStyle.screenSection}>
+        <ImageBackground source={require('../res/TitleImage.png')} style={topSectionStyle.backgroundImage}>
         <View style={pageStyle.topSection}>
         <TouchableOpacity
           style={topSectionStyle.backButton}
@@ -103,7 +118,7 @@ export default class QuestionPage extends React.Component {
             </Text>
           </TouchableOpacity> 
           <View style={topSectionStyle.progressSection}>
-          <ProgressBar progress={this.state.quesNum / 12} width={200} />
+          <ProgressBar progress={this.state.quesNum / 12} width={200} color={"white"} />
           </View>
           <View style={topSectionStyle.numberSection}>
             <Text style={topSectionStyle.numberText}>
@@ -113,7 +128,7 @@ export default class QuestionPage extends React.Component {
           
         </View>
         <View style={pageStyle.questionSection}>
-          <Text style={[questionStyle.questionText, { fontSize: RFValue(23) }]}>
+          <Text style={[questionStyle.questionText, this.isLong(this.state.questions[this.state.quesNum].question)]}>
             {this.state.quesNum + 1}.{" "}
             {this.state.questions[this.state.quesNum].question}
           </Text>
@@ -149,6 +164,7 @@ export default class QuestionPage extends React.Component {
             </View>
           </TouchableOpacity>
         </View>
+        </ImageBackground>
       </View>
     );
   }
@@ -444,7 +460,7 @@ const questionStyle = StyleSheet.create({
     textAlign: "center",
     paddingTop: 15,
     color: 'white',
-    fontFamily: 'NanumBrushScript-Regular',
+    fontFamily: 'Ubuntu-Regular',
   },
 });
 
@@ -458,8 +474,9 @@ const answerStyle = StyleSheet.create({
   },
   answerText: {
     textAlign: "center",
-    fontSize: 26,
-    fontFamily: 'NanumBrushScript-Regular',
+    fontSize: RFValue(20),
+    fontFamily: 'Ubuntu-Regular',
+    color: "#11224D",
   },
   img: {
     flex: 1,
@@ -498,5 +515,10 @@ const topSectionStyle = StyleSheet.create({
     color: "white",
     fontSize: RFValue(17),
     fontWeight: "bold",
+  },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center"
   }
 })
