@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, ScrollView, View, Image } from "react-native";
+import { StyleSheet, ScrollView, View, ImageBackground } from "react-native";
 import {
   Button,
   Card,
@@ -143,17 +143,23 @@ export default class DetailPage extends React.Component {
         return score > 3;
       })
       .map((place) => {
-        return <DetailCard place={place} key={place.mbti} />;
+        return <DetailCard place={place} key={place.title} />;
       });
 
     return (
-      <GestureRecognizer
-        style={styles.container}
-        onSwipeLeft={this.onSwipeLeft.bind(this)}
+      <ImageBackground
+        source={require("../res/TitleImage.png")}
+        style={{ flex: 1 }}
       >
-        <ScrollView style={styles.scroll}>{rcmdCards}</ScrollView>
-        <SwipeText />
-      </GestureRecognizer>
+        <GestureRecognizer
+          style={styles.container}
+          gestureIsClickThreshold={10}
+          onSwipeLeft={this.onSwipeLeft.bind(this)}
+        >
+          <ScrollView style={styles.scroll}>{rcmdCards}</ScrollView>
+          <SwipeText />
+        </GestureRecognizer>
+      </ImageBackground>
     );
   }
 }
@@ -168,7 +174,9 @@ const styles = StyleSheet.create({
   },
   card: {
     flex: 1,
-    margin: 20,
+    margin: 15,
+    borderWidth: 5,
+    borderColor: "#F98125",
   },
   cardTitle: {
     fontFamily: "Ubuntu-Bold",
