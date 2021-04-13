@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 //   constructor(props, data) {
 //     super(props);
 //   }
-  
+
 //   render(data) {
 //     return (
 //       <View style={styles2.item}>
@@ -33,9 +33,8 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 // }
 
 const Item = ({ onPress, data }) => {
-
   return (
-    <TouchableOpacity style={styles2.item} onPress={e => onPress()}>
+    <TouchableOpacity style={styles2.item} onPress={(e) => onPress()}>
       <View style={{ flex: 1 }}>
         <Image
           resizeMode={"contain"}

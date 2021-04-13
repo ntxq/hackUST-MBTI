@@ -28,7 +28,7 @@ export default class QuestionPage extends React.Component {
       questions: [],
       questionImages: [],
       quesNum: 0,
-      answers: [0,0,0,0,0,0,0,0,0,0,0,0],
+      answers: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       mbtiResult: [0, 0, 0, 0],
     };
 
@@ -45,14 +45,13 @@ export default class QuestionPage extends React.Component {
         this.state.questions.push(keyword.questions[randQuestion]);
         this.state.questionImages.push(randQuestion);
       });
-    }
-
+  }
 
   selectAnswerOne() {
     this.state.answers[this.state.quesNum] = 1;
 
     if (this.state.quesNum === 11) this.finishQuestion();
-    else this.setState({ quesNum: this.state.quesNum + 1 }); 
+    else this.setState({ quesNum: this.state.quesNum + 1 });
   }
 
   selectAnswerTwo() {
@@ -65,12 +64,11 @@ export default class QuestionPage extends React.Component {
     const firstMbti = "ESTJ";
     const secondMbti = "INFP";
     let mbtiResult = "";
-    for(let i = 0; i < 4; ++i){
-      for(let j = 0; j < 3; ++j){
-        if(this.state.answers[i*3 + j] == 1){
+    for (let i = 0; i < 4; ++i) {
+      for (let j = 0; j < 3; ++j) {
+        if (this.state.answers[i * 3 + j] == 1) {
           this.state.mbtiResult[i]++;
-        }
-        else if (this.state.answers[i*3 + j] == 0){
+        } else if (this.state.answers[i * 3 + j] == 0) {
           this.state.mbtiResult[i]--;
         }
       }
@@ -84,86 +82,90 @@ export default class QuestionPage extends React.Component {
   }
 
   back() {
-    if (this.state.quesNum == 0){
+    if (this.state.quesNum == 0) {
       return 0;
     }
-    this.setState({quesNum : this.state.quesNum -1 });
+    this.setState({ quesNum: this.state.quesNum - 1 });
     this.state.answers[this.state.quesNum] = 0;
   }
 
   isLong(text) {
-    if(text.length < 30)
-    return {fontSize : RFValue(30)}
-    else if(text.length < 40)
-    return {fontSize : RFValue(26)}
-    else if(text.length < 50)
-    return {fontSize : RFValue(22)}
-    else if(text.length < 60)
-    return {fontSize : RFValue(20)}
-    else if(text.length >= 60)
-    return {fontSize : RFValue(18)}
+    if (text.length < 30) return { fontSize: RFValue(30) };
+    else if (text.length < 40) return { fontSize: RFValue(26) };
+    else if (text.length < 50) return { fontSize: RFValue(22) };
+    else if (text.length < 60) return { fontSize: RFValue(20) };
+    else if (text.length >= 60) return { fontSize: RFValue(18) };
   }
 
   render() {
-    
     return (
       <View style={pageStyle.screenSection}>
-        <ImageBackground source={require('../res/TitleImage.png')} style={topSectionStyle.backgroundImage}>
-        <View style={pageStyle.topSection}>
-        <TouchableOpacity
-          style={topSectionStyle.backButton}
-          onPress={this.back}>
-            <Text style={topSectionStyle.backText}>
-            &#8592;
-            </Text>
-          </TouchableOpacity> 
-          <View style={topSectionStyle.progressSection}>
-          <ProgressBar progress={this.state.quesNum / 12} width={200} color={"white"} />
-          </View>
-          <View style={topSectionStyle.numberSection}>
-            <Text style={topSectionStyle.numberText}>
-            {this.state.quesNum+1} {" / 12"}
-            </Text>
-          </View>
-          
-        </View>
-        <View style={pageStyle.questionSection}>
-          <Text style={[questionStyle.questionText, this.isLong(this.state.questions[this.state.quesNum].question)]}>
-            {this.state.quesNum + 1}.{" "}
-            {this.state.questions[this.state.quesNum].question}
-          </Text>
-        </View>
-        <View style={pageStyle.answerSection}>
-          <TouchableOpacity
-            style={[answerStyle.answerButton, { backgroundColor: "#F98125" }]}
-            onPress={this.selectAnswerOne}
-          >
-            <Image
-              source={this.state.questions[this.state.quesNum].images[0]}
-              style={answerStyle.img}
-            />
-            <View>
-              <Text style={answerStyle.answerText}>
-                {this.state.questions[this.state.quesNum].answers[0]}
+        <ImageBackground
+          source={require("../res/TitleImage.png")}
+          style={topSectionStyle.backgroundImage}
+        >
+          <View style={pageStyle.topSection}>
+            <TouchableOpacity
+              style={topSectionStyle.backButton}
+              onPress={this.back}
+            >
+              <Text style={topSectionStyle.backText}>&#8592;</Text>
+            </TouchableOpacity>
+            <View style={topSectionStyle.progressSection}>
+              <ProgressBar
+                progress={this.state.quesNum / 12}
+                width={200}
+                color={"white"}
+              />
+            </View>
+            <View style={topSectionStyle.numberSection}>
+              <Text style={topSectionStyle.numberText}>
+                {this.state.quesNum + 1} {" / 12"}
               </Text>
             </View>
-          </TouchableOpacity>
+          </View>
+          <View style={pageStyle.questionSection}>
+            <Text
+              style={[
+                questionStyle.questionText,
+                this.isLong(this.state.questions[this.state.quesNum].question),
+              ]}
+            >
+              {this.state.quesNum + 1}.{" "}
+              {this.state.questions[this.state.quesNum].question}
+            </Text>
+          </View>
+          <View style={pageStyle.answerSection}>
+            <TouchableOpacity
+              style={[answerStyle.answerButton, { backgroundColor: "#F98125" }]}
+              onPress={this.selectAnswerOne}
+            >
+              <Image
+                source={this.state.questions[this.state.quesNum].images[0]}
+                style={answerStyle.img}
+              />
+              <View>
+                <Text style={answerStyle.answerText}>
+                  {this.state.questions[this.state.quesNum].answers[0]}
+                </Text>
+              </View>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={[answerStyle.answerButton, { backgroundColor:"#F98125" }]}
-            onPress={this.selectAnswerTwo}
-          >
-            <Image
-              source={this.state.questions[this.state.quesNum].images[1]} // replace 0 with this.state.questionImages[quesNum] when all images are ready.
-              style={answerStyle.img}
-            />
-            <View>
-              <Text style={answerStyle.answerText}>
-                {this.state.questions[this.state.quesNum].answers[1]}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity
+              style={[answerStyle.answerButton, { backgroundColor: "#F98125" }]}
+              onPress={this.selectAnswerTwo}
+            >
+              <Image
+                source={this.state.questions[this.state.quesNum].images[1]} // replace 0 with this.state.questionImages[quesNum] when all images are ready.
+                style={answerStyle.img}
+              />
+              <View>
+                <Text style={answerStyle.answerText}>
+                  {this.state.questions[this.state.quesNum].answers[1]}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </ImageBackground>
       </View>
     );
@@ -437,13 +439,13 @@ const pageStyle = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "center",
-  //  backgroundColor: "#11224D"
+    //  backgroundColor: "#11224D"
   },
   topSection: {
     flex: 1.3,
     flexDirection: "row",
     backgroundColor: "#F98125",
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
   },
   questionSection: {
     flex: 2,
@@ -459,8 +461,8 @@ const questionStyle = StyleSheet.create({
     marginHorizontal: 15,
     textAlign: "center",
     paddingTop: 15,
-    color: 'white',
-    fontFamily: 'Ubuntu-Regular',
+    color: "white",
+    fontFamily: "Ubuntu-Regular",
   },
 });
 
@@ -475,30 +477,30 @@ const answerStyle = StyleSheet.create({
   answerText: {
     textAlign: "center",
     fontSize: RFValue(20),
-    fontFamily: 'Ubuntu-Regular',
+    fontFamily: "Ubuntu-Regular",
     color: "#11224D",
   },
   img: {
     flex: 1,
     width: 0.8 * dimensions.width,
     borderRadius: 10,
-    borderColor:"#F98125",
+    borderColor: "#F98125",
     borderWidth: 10,
   },
 });
 
 const topSectionStyle = StyleSheet.create({
-  progressSection:{
+  progressSection: {
     flex: 6,
     alignItems: "center",
     justifyContent: "center",
   },
-  numberSection:{
+  numberSection: {
     flex: 2,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
-  backButton:{
+  backButton: {
     flex: 1.5,
     alignItems: "center",
     borderRadius: 5,
@@ -508,7 +510,7 @@ const topSectionStyle = StyleSheet.create({
   backText: {
     color: "white",
     fontSize: RFValue(30),
-    fontWeight:"bold",
+    fontWeight: "bold",
     justifyContent: "center",
   },
   numberText: {
@@ -519,6 +521,6 @@ const topSectionStyle = StyleSheet.create({
   backgroundImage: {
     flex: 1,
     resizeMode: "cover",
-    justifyContent: "center"
-  }
-})
+    justifyContent: "center",
+  },
+});
