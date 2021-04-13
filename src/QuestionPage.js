@@ -135,7 +135,7 @@ export default class QuestionPage extends React.Component {
         </View>
         <View style={pageStyle.answerSection}>
           <TouchableOpacity
-            style={[answerStyle.answerButton, { backgroundColor: "#FB9B50" }]}
+            style={[answerStyle.answerButton, { backgroundColor: "#F98125" }]}
             onPress={this.selectAnswerOne}
           >
             <Image
@@ -150,7 +150,7 @@ export default class QuestionPage extends React.Component {
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={[answerStyle.answerButton, { backgroundColor:"#FB9B50" }]}
+            style={[answerStyle.answerButton, { backgroundColor:"#F98125" }]}
             onPress={this.selectAnswerTwo}
           >
             <Image
@@ -442,7 +442,7 @@ const pageStyle = StyleSheet.create({
   topSection: {
     flex: 1.3,
     flexDirection: "row",
-    backgroundColor: "#FB9B50",
+    backgroundColor: "#F98125",
     justifyContent: "flex-end"
   },
   questionSection: {
@@ -482,7 +482,7 @@ const answerStyle = StyleSheet.create({
     flex: 1,
     width: 0.8 * dimensions.width,
     borderRadius: 10,
-    borderColor:"#FB9B50",
+    borderColor:"#F98125",
     borderWidth: 10,
   },
 });

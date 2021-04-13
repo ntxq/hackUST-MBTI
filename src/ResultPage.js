@@ -138,6 +138,7 @@ export default class ResultPage extends React.Component {
                       flexDirection: "row",
                       opacity: 0.9,
                     }}
+                    key={row}
                   >
                     {characterToType[this.props.mbti]
                       .slice(row * 2, row * 2 + 2)
@@ -151,6 +152,7 @@ export default class ResultPage extends React.Component {
                               justifyContent: "center",
                               opacity: 0.9,
                             }}
+                            key={theme}
                           >
                             <Text
                               style={{
@@ -221,7 +223,6 @@ export default class ResultPage extends React.Component {
                   <Item
                     data={item}
                     onPress={this.props.startDetail.bind(this, section.theme)}
-                    key={item.name}
                   />
                 )}
                 renderSectionHeader={({ section: { theme } }) => (
