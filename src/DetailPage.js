@@ -68,6 +68,12 @@ class DetailCard extends React.Component {
       Adventure: "hiking",
       Family: "child",
       Local: "language",
+      Attraction: "landmark",
+      Backpacking: "hiking",
+      Friends: "users",
+      History: "book-open",
+      Luxury: "sack",
+      Nature: "leaf",
     };
 
     const icons = this.props.place.theme.map((theme) => {

@@ -3,8 +3,8 @@ import TitlePage from "./TitlePage";
 import QuestionPage from "./QuestionPage";
 import ResultPage from "./ResultPage";
 import DetailPage from "./DetailPage";
-import Loading1 from "./Loading1"
-import Loading2 from "./Loading2"
+import Loading1 from "./Loading1";
+import Loading2 from "./Loading2";
 
 class App extends React.Component {
   constructor(props) {
@@ -31,8 +31,7 @@ class App extends React.Component {
     this.setState({
       progress: "Loading2",
     });
-  };
-
+  }
 
   startQuestions() {
     this.setState({
@@ -56,9 +55,7 @@ class App extends React.Component {
 
   render() {
     if (this.state.progress === "Title") {
-      return <TitlePage startButton={this.startLoading2} />;
-    } else if (this.state.progress === "Loading2") {
-      return <Loading2 startQuestion={this.startQuestions} />;
+      return <TitlePage startButton={this.startQuestions} />;
     } else if (this.state.progress === "Questions") {
       return <QuestionPage startResult={this.startResult} />;
     } else if (this.state.progress === "Result") {
