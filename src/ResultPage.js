@@ -85,7 +85,7 @@ export default class ResultPage extends React.Component {
         source={require("../res/TitleImage.png")}
         style={styles.image}
       >
-        <Swiper paginationStyle={{ bottom: 1 }} autoplay={false}>
+        {/* <Swiper paginationStyle={{ bottom: 1 }} autoplay={false}> */}
           <View style={styles.container}>
             <Text
               style={styles.header}
@@ -144,7 +144,7 @@ export default class ResultPage extends React.Component {
                       .slice(row * 2, row * 2 + 2)
                       .map((theme) => {
                         return (
-                          <View
+                          <TouchableOpacity
                             style={{
                               backgroundColor: "#5B84C4",
                               flex: 1,
@@ -153,6 +153,7 @@ export default class ResultPage extends React.Component {
                               opacity: 0.9,
                             }}
                             key={theme}
+                            onPress={this.props.startDetail.bind(this, theme)}
                           >
                             <Text
                               style={{
@@ -169,7 +170,7 @@ export default class ResultPage extends React.Component {
                               style={{ flex: 1, width: "100%" }}
                               source={this.src(theme)}
                             />
-                          </View>
+                          </TouchableOpacity>
                         );
                       })}
                   </View>
@@ -177,6 +178,16 @@ export default class ResultPage extends React.Component {
               })}
             </View>
             <View style={styles.footer}>
+                <Text
+                  style={{
+                    textAlign: "center",
+                    paddingVertical: 5,
+                    fontFamily: "Ubuntu-Medium",
+                    fontWeight: "bold",
+                  }}
+                >
+                  (Tap photos to see details!)
+                </Text>
               <TouchableOpacity
                 style={{
                   flexDirection: "row",
@@ -189,6 +200,7 @@ export default class ResultPage extends React.Component {
                   source={require("../res/share_logo.png")}
                   style={styles.buttonImageIconStyle}
                 />
+                
                 <Text
                   style={{
                     color: "#fff",
@@ -199,7 +211,7 @@ export default class ResultPage extends React.Component {
                   Share your result!
                 </Text>
               </TouchableOpacity>
-              <Text
+              {/* <Text
                 style={{
                   textAlign: "center",
                   paddingTop: 5,
@@ -208,13 +220,25 @@ export default class ResultPage extends React.Component {
                 }}
               >
                 Swipe to see suggestions➟➟
-              </Text>
+              </Text> */}
             </View>
           </View>
-          <View style={styles.container}>
-            <Text style={styles2.header1}>
-              Suggestion{"\n"}(tap to see detail)
+          {/*
+          ====== END OF THE FIRST PAGE =====
+          ====== START OF THE SECOND PAGE =====
+          */}
+          {/* <View style={styles.container}>
+            <Text style={styles2.header}>
+              Suggestion{"\n"}
             </Text>
+            <View style={styles2.desc}>
+              <Text
+                style={{ fontFamily: "Ubuntu-Bold", textAlign: "center" }}
+              >
+                My Personality Type: {this.props.mbti + "\n"}
+                (Tap to see detail)
+              </Text>
+            </View>
             <SafeAreaView style={styles2.container}>
               <SectionList
                 sections={DATA}
@@ -231,7 +255,7 @@ export default class ResultPage extends React.Component {
               />
             </SafeAreaView>
           </View>
-        </Swiper>
+        </Swiper> */}
       </ImageBackground>
     );
   }
@@ -461,13 +485,6 @@ const styles = StyleSheet.create({
     opacity: 0.9,
     marginBottom: 10,
   },
-  header2: {
-    textAlign: "center",
-    fontSize: 20,
-    textAlignVertical: "center",
-    flex: 1,
-    backgroundColor: "#faa564",
-  },
   container: {
     flex: 1,
     paddingTop: StatusBar.currentHeight,
@@ -507,25 +524,38 @@ const styles = StyleSheet.create({
 });
 
 const styles2 = StyleSheet.create({
-  header1: {
+  header: {
     textAlign: "center",
-    fontSize: 20,
+    fontSize: 25,
+    fontFamily: "Ubuntu-Bold",
+    color: "white",
     textAlignVertical: "center",
-    flex: 1,
-    backgroundColor: "#faa564",
-    borderBottomEndRadius: 5,
+    flex: 2,
+    backgroundColor: "#f98125",
+    opacity: 0.9,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+  },
+  desc: {
+    flex: 2,
+    width: "100%",
+    backgroundColor: "#fb9b50",
+    alignItems: "center",
+    justifyContent: "center",
+    opacity: 0.9,
+    marginBottom: 10,
   },
   item: {
     flexDirection: "row",
-    backgroundColor: "lightblue",
+    backgroundColor: "#f7f2f2",
     padding: 20,
     marginVertical: 8,
     borderRadius: 8,
   },
-  header: {
-    fontSize: 32,
-    backgroundColor: "#fff",
-  },
+  // header: {
+  //   fontSize: 32,
+  //   backgroundColor: "#fff",
+  // },
   theme: {
     fontSize: 24,
     paddingBottom: 5,
@@ -537,10 +567,7 @@ const styles2 = StyleSheet.create({
     fontSize: 15,
   },
   container: {
-    flex: 7,
-    paddingTop: StatusBar.currentHeight,
-    marginHorizontal: 3,
-    marginBottom: 20,
+    flex: 12,
     // alignItems: "center"
   },
 });
