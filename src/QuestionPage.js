@@ -78,7 +78,7 @@ export default class QuestionPage extends React.Component {
         mbtiResult = mbtiResult.concat(firstMbti[i]);
       else mbtiResult = mbtiResult.concat(secondMbti[i]);
 
-    this.props.startResult(mbtiResult);
+    this.props.startLoading2(mbtiResult);
   }
 
   back() {

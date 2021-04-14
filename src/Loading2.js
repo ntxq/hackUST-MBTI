@@ -170,11 +170,22 @@ const LoadingAnimation4 = (props) => {
 export default class Loading2 extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      mainText: "Anaylze",
+      subText: "your personality"
+    };
   }
 
   delayQuestion() {
     setTimeout(() => {
-      this.props.startQuestion();
+      this.setState({
+        mainText: "Suggest",
+        subText: "themes and destinations"
+      })
+    }, 2000);
+
+    setTimeout(() => {
+      this.props.startResult();
     }, 4000);
   }
 
@@ -185,7 +196,10 @@ export default class Loading2 extends React.Component {
         style={styles.BackgroundImage}
       >
         <View style={{ flex: 2 }}>
-          <Text style={styles.LoadingText}>Now{"\n"}Loading</Text>
+          <Text style={styles.LoadingText}>{this.state.mainText}</Text>
+        </View>
+        <View style={{ flex: 1 }}>
+          <Text style={styles.LoadingSubText}>{this.state.subText}</Text>
         </View>
         <View style={styles.ColumnView}>
           <LoadingAnimation1>
@@ -229,7 +243,7 @@ const styles = StyleSheet.create({
   },
 
   LoadingText: {
-    fontSize: 60,
+    fontSize: 50,
     fontFamily: "Ubuntu-Bold",
     color: orange1,
     textShadowColor: "rgba(0, 0, 0, 0.75)",
@@ -237,6 +251,17 @@ const styles = StyleSheet.create({
     textShadowRadius: 10,
     textAlign: "center",
     top: "30%",
+  },
+
+  LoadingSubText: {
+    fontSize: 40,
+    fontFamily: "Ubuntu-Bold",
+    color: orange1,
+    textShadowColor: "rgba(0, 0, 0, 0.75)",
+    textShadowOffset: { width: 3, height: 3 },
+    textShadowRadius: 10,
+    textAlign: "center",
+    // top: "30%",
   },
 
   DotText: {

@@ -27,9 +27,10 @@ class App extends React.Component {
     });
   }
 
-  startLoading2() {
+  startLoading2(result) {
     this.setState({
       progress: "Loading2",
+      mbti: result
     });
   }
 
@@ -57,7 +58,7 @@ class App extends React.Component {
     if (this.state.progress === "Title") {
       return <TitlePage startButton={this.startQuestions} />;
     } else if (this.state.progress === "Questions") {
-      return <QuestionPage startResult={this.startResult} />;
+      return <QuestionPage startLoading2={this.startLoading2} />;
     } else if (this.state.progress === "Result") {
       return (
         <ResultPage mbti={this.state.mbti} startDetail={this.startDetail} />
@@ -69,6 +70,10 @@ class App extends React.Component {
           mbti={this.state.mbti}
           startResult={this.startResult.bind(this, this.state.mbti)}
         />
+      );
+    } else if (this.state.progress === "Loading2") {
+      return  (
+        <Loading2 mbti={this.state.mbti} startResult={this.startResult.bind(this, this.state.mbti)} />
       );
     }
   }
