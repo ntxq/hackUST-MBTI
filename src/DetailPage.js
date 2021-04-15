@@ -72,7 +72,7 @@ class DetailCard extends React.Component {
       Backpacking: "hiking",
       Friends: "users",
       History: "book-open",
-      Luxury: "sack",
+      Luxury: "coins",
       Nature: "leaf",
     };
 
@@ -126,7 +126,8 @@ export default class DetailPage extends React.Component {
     super(props);
   }
 
-  onSwipeLeft() {
+  onSwipeLeft(state) {
+    console.log(state);
     this.props.startResult();
   }
 
@@ -153,7 +154,10 @@ export default class DetailPage extends React.Component {
       >
         <GestureRecognizer
           style={styles.container}
-          gestureIsClickThreshold={10}
+          config={{
+            directionalOffsetThreshold: 20,
+            gestureIsClickThreshold: 50,
+          }}
           onSwipeLeft={this.onSwipeLeft.bind(this)}
         >
           <ScrollView style={styles.scroll}>{rcmdCards}</ScrollView>

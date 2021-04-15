@@ -86,132 +86,147 @@ export default class ResultPage extends React.Component {
         style={styles.image}
       >
         {/* <Swiper paginationStyle={{ bottom: 1 }} autoplay={false}> */}
-          <View style={styles.container}>
-            <Text
-              style={styles.header}
-              onPress={(e) =>
-                console.log(
-                  `https://www.traitlab.com/blog/static_assets/images/words_describing_${this.props.mbti.toLowerCase()}.png`
-                )
-              }
-            >
-              Preference Analysis
-            </Text>
-            <View style={styles.result}>
-              <View style={styles.desc}>
-                <Text
-                  style={{ fontFamily: "Ubuntu-Bold", textAlign: "center" }}
-                >
-                  My Personality Type: {this.props.mbti + "\n"}
-                </Text>
-                <Text style={{ fontFamily: "Ubuntu" }}>
-                  {"Description: " + characterToDescription[this.props.mbti]}
-                </Text>
-              </View>
-              <View
+        <View style={styles.container}>
+          <Text
+            style={styles.header}
+            onPress={(e) =>
+              console.log(
+                `https://www.traitlab.com/blog/static_assets/images/words_describing_${this.props.mbti.toLowerCase()}.png`
+              )
+            }
+          >
+            Preference Analysis
+          </Text>
+          <View style={styles.result}>
+            <View style={styles.desc}>
+              <Text
                 style={{
-                  flex: 1,
-                  width: "100%",
-                  backgroundColor: "#2C599D",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  opacity: 0.9,
+                  fontFamily: "Ubuntu-Bold",
+                  textAlign: "center",
+                  fontSize: 18,
                 }}
               >
-                <Text
-                  style={{
-                    color: "white",
-                    fontSize: 22,
-                    fontFamily: "Ubuntu-Bold",
-                  }}
-                >
-                  Related Theme
-                </Text>
-              </View>
-              {[0, 1].map((row) => {
-                return (
-                  <View
-                    style={{
-                      flex: 2,
-                      width: "100%",
-                      backgroundColor: "ivory",
-                      flexDirection: "row",
-                      opacity: 0.9,
-                    }}
-                    key={row}
-                  >
-                    {characterToType[this.props.mbti]
-                      .slice(row * 2, row * 2 + 2)
-                      .map((theme) => {
-                        return (
-                          <TouchableOpacity
-                            style={{
-                              backgroundColor: "#5B84C4",
-                              flex: 1,
-                              alignItems: "center",
-                              justifyContent: "center",
-                              opacity: 0.9,
-                            }}
-                            key={theme}
-                            onPress={this.props.startDetail.bind(this, theme)}
-                          >
-                            <Text
-                              style={{
-                                color: "#f7f2f2",
-                                fontSize: 14,
-                                fontWeight: "bold",
-                                fontFamily: "Ubuntu-Regular",
-                              }}
-                            >
-                              {theme.toLowerCase()}
-                            </Text>
-                            <Image
-                              resizeMode={"center"}
-                              style={{ flex: 1, width: "100%", height: "100%" }}
-                              source={this.src(theme)}
-                            />
-                          </TouchableOpacity>
-                        );
-                      })}
-                  </View>
-                );
-              })}
+                My Personality Type: {this.props.mbti + "\n"}
+              </Text>
+              <Text
+                style={{
+                  fontFamily: "NanumBrushScript-Regular",
+                  fontSize: 25,
+                  textAlign: "center",
+                }}
+              >
+                {characterToDescription[this.props.mbti]}
+              </Text>
             </View>
-            <View style={styles.footer}>
-                <Text
-                  style={{
-                    textAlign: "center",
-                    paddingVertical: 5,
-                    fontFamily: "Ubuntu-Medium",
-                    fontWeight: "bold",
-                  }}
-                >
-                  (Tap photos to see details!)
-                </Text>
-              <TouchableOpacity
+            <View
+              style={{
+                flex: 1,
+                width: "100%",
+                backgroundColor: "#2C599D",
+                alignItems: "center",
+                justifyContent: "center",
+                opacity: 0.9,
+              }}
+            >
+              <Text
                 style={{
-                  flexDirection: "row",
-                  justifyContent: "flex-end",
-                  alignItems: "center",
+                  color: "white",
+                  fontSize: 22,
+                  fontFamily: "Ubuntu-Bold",
                 }}
-                onPress={this.onShare}
               >
-                <Image
-                  source={require("../res/share_logo.png")}
-                  style={styles.buttonImageIconStyle}
-                />
-                
-                <Text
+                Related Theme
+              </Text>
+            </View>
+            {[0, 1].map((row) => {
+              return (
+                <View
                   style={{
-                    color: "#fff",
-                    fontSize: 25,
-                    fontFamily: "NanumBrushScript-Regular",
+                    flex: 2,
+                    width: "100%",
+                    backgroundColor: "ivory",
+                    flexDirection: "row",
+                    opacity: 0.9,
                   }}
+                  key={row}
                 >
-                  Share your result!
-                </Text>
-              </TouchableOpacity>
-              {/* <Text
+                  {characterToType[this.props.mbti]
+                    .slice(row * 2, row * 2 + 2)
+                    .map((theme) => {
+                      return (
+                        <TouchableOpacity
+                          style={{
+                            backgroundColor: "#5B84C4",
+                            flex: 1,
+                            alignItems: "center",
+                            justifyContent: "center",
+                            opacity: 0.9,
+                          }}
+                          key={theme}
+                          onPress={this.props.startDetail.bind(this, theme)}
+                        >
+                          <Text
+                            style={{
+                              color: "#f7f2f2",
+                              fontSize: 14,
+                              fontWeight: "bold",
+                              fontFamily: "Ubuntu-Regular",
+                            }}
+                          >
+                            {theme.toLowerCase()}
+                          </Text>
+                          <Image
+                            resizeMode={"center"}
+                            style={{
+                              flex: 1,
+                              width: 125,
+                              height: 125,
+                              resizeMode: "cover",
+                            }}
+                            source={this.src(theme)}
+                          />
+                        </TouchableOpacity>
+                      );
+                    })}
+                </View>
+              );
+            })}
+          </View>
+          <View style={styles.footer}>
+            <Text
+              style={{
+                textAlign: "center",
+                paddingVertical: 5,
+                fontFamily: "Ubuntu-Medium",
+                fontWeight: "bold",
+              }}
+            >
+              (Tap photos to see details!)
+            </Text>
+            <TouchableOpacity
+              style={{
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                alignItems: "center",
+              }}
+              onPress={this.onShare}
+            >
+              <Image
+                source={require("../res/share_logo.png")}
+                style={styles.buttonImageIconStyle}
+              />
+
+              <Text
+                style={{
+                  color: "#fff",
+                  fontSize: 25,
+                  fontFamily: "NanumBrushScript-Regular",
+                }}
+              >
+                Share your result!
+              </Text>
+            </TouchableOpacity>
+            {/* <Text
                 style={{
                   textAlign: "center",
                   paddingTop: 5,
@@ -221,13 +236,13 @@ export default class ResultPage extends React.Component {
               >
                 Swipe to see suggestions➟➟
               </Text> */}
-            </View>
           </View>
-          {/*
+        </View>
+        {/*
           ====== END OF THE FIRST PAGE =====
           ====== START OF THE SECOND PAGE =====
           */}
-          {/* <View style={styles.container}>
+        {/* <View style={styles.container}>
             <Text style={styles2.header}>
               Suggestion{"\n"}
             </Text>
