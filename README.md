@@ -1,5 +1,5 @@
 # MBTI Travel Planner by Team BabyAirForce
-<img src="./res/Readme/TitlePage.png" width="150">
+<img src="./res/Readme/TitlePage.png" width="170">
 
 > This is an android APP built with react-native that plans a travel automatically.
 
@@ -11,13 +11,11 @@ We have used react-native which is a framework designed to build a mobile applic
 - All the images, fonts, sounds used are located in the '_res_', 'fonts', 'sounds', folder respectively.
 
 ## Usage
-| <img src="./res/Readme/Question.png" width="150"> | <img src="./res/Readme/Detail.png" width="150"> | <img src="./res/Readme/Result.png" width="150"> |
+| <img src="./res/Readme/Question.png" width="170"> | <img src="./res/Readme/Detail.png" width="170"> | <img src="./res/Readme/Result.png" width="170"> |
 | --- | --- | --- |
 
 It has prepared 12 different questions in total to judge the users' personalities. The questions will be asked first and the related themes will be displayed that suit the users' personalities.
-
 Then the users can check out the details of the places and the attractions associated with each theme by tapping on the picture. 
-
 On top of that, the users can share the results on a social network of their choice to interact with their family of friends, possibly making more people being interested in this APP.
 
 
