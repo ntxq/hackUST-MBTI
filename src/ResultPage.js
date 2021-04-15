@@ -167,7 +167,7 @@ export default class ResultPage extends React.Component {
                             </Text>
                             <Image
                               resizeMode={"center"}
-                              style={{ flex: 1, width: "100%" }}
+                              style={{ flex: 1, width: "100%", height: "100%" }}
                               source={this.src(theme)}
                             />
                           </TouchableOpacity>
