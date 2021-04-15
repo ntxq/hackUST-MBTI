@@ -171,7 +171,7 @@ export default class Loading2 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      mainText: "Anaylze",
+      mainText: "Anaylzing",
       subText: "your personality"
     };
   }
@@ -179,7 +179,7 @@ export default class Loading2 extends React.Component {
   delayQuestion() {
     setTimeout(() => {
       this.setState({
-        mainText: "Suggest",
+        mainText: "Suggesting",
         subText: "themes and destinations"
       })
     }, 2000);
