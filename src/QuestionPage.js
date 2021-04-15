@@ -113,7 +113,7 @@ export default class QuestionPage extends React.Component {
             </TouchableOpacity>
             <View style={topSectionStyle.progressSection}>
               <ProgressBar
-                progress={this.state.quesNum / 12}
+                progress={(this.state.quesNum + 1) / 12}
                 width={200}
                 color={"white"}
               />
@@ -506,6 +506,7 @@ const topSectionStyle = StyleSheet.create({
     borderRadius: 5,
     justifyContent: "center",
     textAlignVertical: "center",
+    marginTop: -15,
   },
   backText: {
     color: "white",
